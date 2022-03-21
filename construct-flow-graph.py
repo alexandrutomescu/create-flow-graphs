@@ -1,4 +1,5 @@
-from math import floor
+from math import ceil, floor
+import sys
 import networkx as nx
 from graphviz import Digraph
 from numpy.random import default_rng
@@ -56,7 +57,7 @@ genomeFiles = ['GCA_000005845.2_ASM584v2.fna',
     'GCA_000163215.1_ASM16321v1.fna']
 
 rng = default_rng()
-genomeAbundances = [floor(x*1000)+1 for x in rng.lognormal(mean=-4, sigma=4, size = len(genomeFiles))]
+genomeAbundances = [ceil(x*1000) for x in rng.lognormal(mean=-4, sigma=4, size = len(genomeFiles))]
 
 def nextKmer(kmer, newBase):
     return kmer[-(len(kmer) - 1):] + newBase
@@ -73,7 +74,7 @@ def out_neighbors(graph, kmer):
             
     return n
 
-def get_genome(filePath, rangeStart, rangeEnd):
+def get_genome(filePath):
     genome = ''
     fastqLines = open(filePath, 'r').readlines()
 
@@ -82,15 +83,14 @@ def get_genome(filePath, rangeStart, rangeEnd):
             continue
         genome += line.strip().upper()
         
-    return genome[rangeStart:rangeEnd]
+    return genome
 
 def augment_dbGraph_from_string(string, order, abundance):
+    global dbGraph
 
     for i in range(len(string) - (order-1)):
         kmer = string[i:i+order]
         dbGraph[kmer] = dbGraph.get(kmer, 0) + abundance
-
-    return dbGraph
 
 def convert_to_networkx_graph(graph):
     global nextId, s, t
@@ -136,42 +136,6 @@ def compact_unary_nodes(G):
             f = G[u][node]["weight"]
             G.remove_node(node)
             G.add_edge(u, w, weight=f)
-
-def compact_y2v_nodes(G):
-    
-    # forward
-    y2vNodes = []
-    for v in G.nodes():
-        if G.in_degree(v) == 1 and G.out_degree(v) > 1:
-            y2vNodes.append(v)
-    for node in y2vNodes:
-        u = list(G.predecessors(node))[0]
-        successors = list(G.successors(node))
-        for w in successors:
-            if not G.has_edge(u,w):
-                f = G[node][w]["weight"]
-                G.add_edge(u, w, weight=f)
-                G[u][node]["weight"] -= f
-                G.remove_edge(node,w)
-        if G.out_degree(node) == 0:
-            G.remove_node(node)
-
-    # reverse
-    y2vNodes = []
-    for v in G.nodes():
-        if G.in_degree(v) > 1 and G.out_degree(v) == 1:
-            y2vNodes.append(v)
-    for node in y2vNodes:
-        w = list(G.successors(node))[0]
-        predecessors = list(G.predecessors(node))
-        for u in predecessors:
-            if not G.has_edge(u,w):
-                f = G[u][node]["weight"]
-                G.add_edge(u, w, weight=f)
-                G[node][w]["weight"] -= f
-                G.remove_edge(u,node)
-        if G.in_degree(node) == 0:
-            G.remove_node(node)
 
 def check_flow_conservation(G):
     
@@ -227,36 +191,40 @@ def write_to_catfish_format(G, filename):
 
 k = 15
 gt = 5
-dbGraph = dict() # edges and their abundances
-kmer2id = dict()
-nextId = 2
-s = 0
-t = 1
 
-l_range = 0
-r_range = 1000
+genomes = []
+range_increment = 2000
+min_length = sys.maxsize
 
-for index, genomeFile in enumerate(genomeFiles[:gt]):
-    genome = get_genome('ecoli/' + genomeFile, 0, 2000)
-    # print("Loaded the genome")
-    dbGraph = augment_dbGraph_from_string(genome, k, genomeAbundances[index])
-    # print("Constructed the graph")
+for genomeFile in genomeFiles[:gt]:
+    genome = get_genome('ecoli/' + genomeFile)
+    min_length = min(min_length, len(genome))
+    genomes.append(genome)
 
-dbGraph_nx = convert_to_networkx_graph(dbGraph)
-print("Created the graph")
-compact_unary_nodes(dbGraph_nx)
-# compact_y2v_nodes(dbGraph_nx)
-# assert(check_flow_conservation(dbGraph_nx))
+for range_start in range(0,min_length,range_increment):
+    dbGraph = dict() # edges and their abundances
+    kmer2id = dict()
+    nextId = 2
+    s = 0
+    t = 1
+    for index, genome in enumerate(genomes[:gt]):
+        augment_dbGraph_from_string(genome[range_start:range_start+range_increment], k, genomeAbundances[index])
 
-print("Compacted the graph")
-# print("Converted to nx")
-print(f'Number of nodes: {dbGraph_nx.number_of_nodes()}')
-print(f'Number of edges: {dbGraph_nx.number_of_edges()}')
-print(f'Is acyclic: {nx.is_directed_acyclic_graph(dbGraph_nx)}')
-n_cycles = count_simple_cycles(dbGraph_nx, 1000)
-print(f'Truncated number of cycles: {n_cycles}')
+    dbGraph_nx = convert_to_networkx_graph(dbGraph)
+    print("Created the graph")
+    compact_unary_nodes(dbGraph_nx)
+    assert(check_flow_conservation(dbGraph_nx))
 
-filename = f'graphs/gt{gt}.kmer{k}.({l_range}.{r_range}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.cyc{n_cycles}.graph'
-write_to_catfish_format(dbGraph_nx, filename)
-dbGraph_dot = network2dot(dbGraph_nx)
-dbGraph_dot.view()
+    print("Compacted the graph")
+    print(f'Number of nodes: {dbGraph_nx.number_of_nodes()}')
+    print(f'Number of edges: {dbGraph_nx.number_of_edges()}')
+    print(f'Is acyclic: {nx.is_directed_acyclic_graph(dbGraph_nx)}')
+    n_cycles = count_simple_cycles(dbGraph_nx, 1000)
+    print(f'Truncated number of cycles: {n_cycles}')
+
+    if n_cycles < 50:
+        continue
+    filename = f'graphs/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.cyc{n_cycles}.graph'
+    write_to_catfish_format(dbGraph_nx, filename)
+    # dbGraph_dot = network2dot(dbGraph_nx)
+    # dbGraph_dot.view()
