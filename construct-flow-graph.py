@@ -85,15 +85,20 @@ def get_genome(filePath):
         
     return genome
 
-def augment_dbGraph_from_string(string, order, abundance):
-    global dbGraph
+def augment_dbGraph_from_string(string, index, order, abundance):
+    global dbGraph, kmer_paths
 
     for i in range(len(string) - (order-1)):
         kmer = string[i:i+order]
         dbGraph[kmer] = dbGraph.get(kmer, 0) + abundance
+        kmer1 = kmer[:-1]
+        kmer2 = kmer[1:]
+        if len(kmer_paths[index]) == 0:
+            kmer_paths[index].append(kmer1)
+        kmer_paths[index].append(kmer2)
 
 def convert_to_networkx_graph(graph):
-    global nextId, s, t
+    global nextId, s, t, kmer2id, paths, kmer_paths, genomeAbundances
     G = nx.DiGraph()
     
     for key in graph.keys():
@@ -106,25 +111,45 @@ def convert_to_networkx_graph(graph):
         G.add_edge(kmer2id[kmer1], kmer2id[kmer2], weight=graph[key])
     G.add_nodes_from([s, t])
 
-    for v in G.nodes():
-        if v == s or v == t:
-            continue
-        in_flow = 0
-        for u in G.predecessors(v):
-            in_flow += G[u][v]["weight"]
-        out_flow = 0
-        for w in G.successors(v):
-            out_flow += G[v][w]["weight"]
+    # construct paths
+    for path_index, kmer_path in enumerate(kmer_paths):
+        paths[path_index] = [s]
+        for kmer in kmer_path:
+            kmerid = kmer2id[kmer]
+            paths[path_index].append(kmerid)
+        paths[path_index].append(t)
 
-        if in_flow < out_flow:
-            G.add_edge(s, v, weight=out_flow - in_flow)
-        if in_flow > out_flow:
-            G.add_edge(v, t, weight=in_flow - out_flow)
-    
+    for index, path in enumerate(paths):
+        if G.has_edge(s,path[1]):
+            G[s][path[1]]["weight"] += genomeAbundances[index]
+        else:
+            G.add_edge(s, path[1], weight=genomeAbundances[index])
+        
+        if G.has_edge(path[-2],t):
+            G[path[-2]][t]["weight"] += genomeAbundances[index]
+        else:
+            G.add_edge(path[-2], t, weight=genomeAbundances[index])
+
+    # for v in G.nodes():
+    #     if v == s or v == t:
+    #         continue
+    #     in_flow = 0
+    #     for u in G.predecessors(v):
+    #         in_flow += G[u][v]["weight"]
+    #     out_flow = 0
+    #     for w in G.successors(v):
+    #         out_flow += G[v][w]["weight"]
+
+    #     if in_flow < out_flow:
+    #         G.add_edge(s, v, weight=out_flow - in_flow)
+    #     if in_flow > out_flow:
+    #         G.add_edge(v, t, weight=in_flow - out_flow)
+
     return G
 
 def compact_unary_nodes(G):
-    
+    global removedNodes
+
     unaryNodes = []
     for v in G.nodes():
         if G.in_degree(v) == 1 and G.out_degree(v) == 1:
@@ -135,6 +160,7 @@ def compact_unary_nodes(G):
         if not G.has_edge(u,w):
             f = G[u][node]["weight"]
             G.remove_node(node)
+            removedNodes.add(node)
             G.add_edge(u, w, weight=f)
 
 def check_flow_conservation(G):
@@ -170,18 +196,23 @@ def count_simple_cycles(G, bound):
     return count
 
 def write_to_catfish_format(G, filename):
-    global genomeFiles
-    global genomeAbundances
+    global genomeFiles, genomeAbundances, paths, removedNodes
 
     f = open(filename,"w")
-
+    f.write('#unique source is 0, unique sink is 1\n')
     f.write('#genomes: ')
-    for genomeFile in genomeFiles:
+    for genomeFile in genomeFiles[:len(paths)]:
         f.write(f'{genomeFile} ')
-    f.write('\n#abundances: ')
-    for genomeAbundance in genomeAbundances:
-        f.write(f'{genomeAbundance} ')
-    f.write('\n')
+    # f.write('\n#abundances: ')
+    # for genomeAbundance in genomeAbundances:
+    #     f.write(f'{genomeAbundance} ')
+    f.write('\n#ground truth paths, in the format \'weight node1 node2 node3 ... \'\n')
+    for index, path in enumerate(paths):
+        f.write(f'# {genomeAbundances[index]} ')
+        for node in path:
+            if node not in removedNodes:
+                f.write(f'{node} ')
+        f.write('\n')
 
     f.write(f'{G.number_of_edges()}\n')
     for u,v,a in G.edges(data=True):
@@ -190,41 +221,47 @@ def write_to_catfish_format(G, filename):
 
 
 k = 15
-gt = 5
 
 genomes = []
 range_increment = 2000
 min_length = sys.maxsize
 
-for genomeFile in genomeFiles[:gt]:
-    genome = get_genome('ecoli/' + genomeFile)
-    min_length = min(min_length, len(genome))
-    genomes.append(genome)
+for gt in range(1,51):
+    print(f'gt {gt}')
+    for genomeFile in genomeFiles[:gt]:
+        genome = get_genome('ecoli/' + genomeFile)
+        min_length = min(min_length, len(genome))
+        genomes.append(genome)
 
-for range_start in range(0,min_length,range_increment):
-    dbGraph = dict() # edges and their abundances
-    kmer2id = dict()
-    nextId = 2
-    s = 0
-    t = 1
-    for index, genome in enumerate(genomes[:gt]):
-        augment_dbGraph_from_string(genome[range_start:range_start+range_increment], k, genomeAbundances[index])
+    for range_start in range(0,min_length,range_increment):
+        dbGraph = dict() # edges and their abundances
+        kmer2id = dict()
+        removedNodes = set() # stores the ids of the removed nodes
+        paths = [[] for x in range(gt)] # an element for each path, stores the nodes on the path as keys, and their index in the path as values
+        kmer_paths = [[] for x in range(gt)] # an element for each path, stores the nodes on the path as keys, and their index in the path as values
+        nextId = 2
+        s = 0
+        t = 1
+        for index, genome in enumerate(genomes[:gt]):
+            augment_dbGraph_from_string(genome[range_start:range_start+range_increment], index, k, genomeAbundances[index])
 
-    dbGraph_nx = convert_to_networkx_graph(dbGraph)
-    print("Created the graph")
-    compact_unary_nodes(dbGraph_nx)
-    assert(check_flow_conservation(dbGraph_nx))
+        dbGraph_nx = convert_to_networkx_graph(dbGraph)
+        # print("Created the graph")
+        compact_unary_nodes(dbGraph_nx)
+        assert(check_flow_conservation(dbGraph_nx))
 
-    print("Compacted the graph")
-    print(f'Number of nodes: {dbGraph_nx.number_of_nodes()}')
-    print(f'Number of edges: {dbGraph_nx.number_of_edges()}')
-    print(f'Is acyclic: {nx.is_directed_acyclic_graph(dbGraph_nx)}')
-    n_cycles = count_simple_cycles(dbGraph_nx, 1000)
-    print(f'Truncated number of cycles: {n_cycles}')
+        # print("Compacted the graph")
+        # print(f'Number of nodes: {dbGraph_nx.number_of_nodes()}')
+        # print(f'Number of edges: {dbGraph_nx.number_of_edges()}')
+        # print(f'Is acyclic: {nx.is_directed_acyclic_graph(dbGraph_nx)}')
+        n_cycles = count_simple_cycles(dbGraph_nx, 1000)
+        # print(f'Truncated number of cycles: {n_cycles}')
 
-    if n_cycles < 50:
-        continue
-    filename = f'graphs/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.cyc{n_cycles}.graph'
-    write_to_catfish_format(dbGraph_nx, filename)
-    # dbGraph_dot = network2dot(dbGraph_nx)
-    # dbGraph_dot.view()
+        if n_cycles < 50:
+            continue
+        filename = f'graphs/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.cyc{n_cycles}.graph'
+        write_to_catfish_format(dbGraph_nx, filename)
+        # activate these for debugging
+        # dbGraph_dot = network2dot(dbGraph_nx)
+        # dbGraph_dot.view()
+        # break
