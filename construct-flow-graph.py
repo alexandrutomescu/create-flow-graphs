@@ -224,6 +224,6 @@ for gt in range(1,51):
         write_to_catfish_format(dbGraph_nx, filename)
 
         # activate these for debugging
-        dbGraph_dot = network2dot(dbGraph_nx)
-        dbGraph_dot.view()
-        quit()
+        # dbGraph_dot = network2dot(dbGraph_nx)
+        # dbGraph_dot.view()
+        # quit()
