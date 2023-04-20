@@ -1,7 +1,11 @@
 from math import ceil, floor
+from re import L
 import sys
+import os
+import pipes
 import networkx as nx
 from graphviz import Digraph
+import argparse
 from numpy.random import default_rng
 
 dnaBases = ['A','C','G','T']
@@ -56,8 +60,6 @@ genomeFiles = ['GCA_000005845.2_ASM584v2.fna',
     'GCA_000163195.1_ASM16319v1.fna',
     'GCA_000163215.1_ASM16321v1.fna']
 
-rng = default_rng()
-genomeAbundances = [ceil(x*1000) for x in rng.lognormal(mean=-4, sigma=4, size = len(genomeFiles))]
 
 def get_genome(filePath):
     genome = ''
@@ -167,9 +169,10 @@ def count_simple_cycles(G, bound):
     return count
 
 def write_to_catfish_format(G, filename):
-    global s, t, genomeFiles, genomeAbundances, paths, removedNodes
+    global s, t, genomeFiles, genomeAbundances, paths, removedNodes, args_str
 
     f = open(filename,"w")
+    f.write(args_str + '\n')
     f.write(f'#unique source is {s}, unique sink is {t}\n')
     f.write('#genomes: ')
     for genomeFile in genomeFiles[:len(paths)]:
@@ -188,25 +191,77 @@ def write_to_catfish_format(G, filename):
     f.close()
 
 
-k = 15
+parser = argparse.ArgumentParser(
+    description="""
+    Creates flow de Bruijn graphs from a collection of ecoli genomes
+    """,
+    formatter_class=argparse.RawTextHelpFormatter
+    )
+parser.add_argument('-k', '--kmersize', type=int, default=15, help='The kmer size')
+parser.add_argument('-w', '--windowsize', type=int, default=2000, help='The length of the genome windows from which to build the graphs')
+parser.add_argument('-a', '--acyclic', action='store_true', help='Keep only acyclic graphs')
+parser.add_argument('-c', '--mincycles', type=int, default=0, help='Keep only graphs with at least this many cycles')
+parser.add_argument('-d', '--distribution', type=str, default='lognormal-44', help='lognormal-44 or lognormal11')
+parser.add_argument('-g', '--ngenomes', type=int, help='The number of ecoli genomes from which to construct the graph', required=True)
+parser.add_argument('-o', '--outdir', type=str, default='', help='outputdir', required=True)
+
+args = parser.parse_args()
+
+print('--------------------------------------')
+print('Running with the following parameters:')
+command = (sys.argv[0] + ' ') + ' '.join( [pipes.quote(s) for s in sys.argv[1:]] )
+args_str = ('#' + command + '\n#') + '\n#'.join(f'{k}={v}' for k, v in vars(args).items())
+print(args_str)
+print('--------------------------------------')
+
+rng = default_rng()
+if args.distribution == 'lognormal-44':
+    genomeAbundances = [ceil(x*1000) for x in rng.lognormal(mean=-4, sigma=4, size = args.ngenomes)]
+elif args.distribution == 'lognormal11':
+    genomeAbundances = [ceil(x*1000) for x in rng.lognormal(mean=1, sigma=1, size = args.ngenomes)]
+else:
+    print("ERROR: unknown distribution, set either lognormal-44 (default) or lognormal11")
+
+
+if args.acyclic and args.mincycles > 0:
+    print("ERROR: you cannot set both --acyclic and --mincycles")
+    exit()
+
+k = args.kmersize
+outdir = args.outdir.strip().strip("/")
+
+if os.path.isdir(outdir):
+    print(f"ERROR: {outdir} already exists")
+    exit()
+
+os.mkdir(outdir)
 
 genomes = []
-range_increment = 2000
+range_increment = args.windowsize
 min_length = sys.maxsize
 
-for gt in range(1,51):
-    print(f'gt {gt}')
+for gt in range(args.ngenomes,args.ngenomes+1):
     for genomeFile in genomeFiles[:gt]:
         genome = get_genome('ecoli/' + genomeFile)
         min_length = min(min_length, len(genome))
         genomes.append(genome)
 
+    progress = -1
+
     for range_start in range(0,min_length,range_increment):
+        # progress printing
+        old_progress = progress
+        progress = int(range_start / min_length * 100)
+        if progress > old_progress and progress % 5 == 0:
+            print(f'Progress: {progress}%')
+        # progress printing
+
         dbGraph = dict() # edges and their abundances
         kmer2id = dict()
         removedNodes = set() # stores the ids of the removed nodes
         paths = [[] for x in range(gt)] # an element for each path, stores the list of each node id on the path
         kmer_paths = [[] for x in range(gt)] # an element for each path, stores the list of kmer nodes on the path
+        
         
         s, t, nextId = 0, 1, 2
         for index, genome in enumerate(genomes[:gt]):
@@ -216,12 +271,15 @@ for gt in range(1,51):
         compact_unary_nodes(dbGraph_nx)
         assert(satisfies_flow_conservation(dbGraph_nx))
 
-        n_cycles = count_simple_cycles(dbGraph_nx, 1000)
-
-        if n_cycles < 50:
-            continue
-        filename = f'graphs/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.cyc{n_cycles}.graph'
-        write_to_catfish_format(dbGraph_nx, filename)
+        if args.acyclic:
+            if nx.is_directed_acyclic_graph(dbGraph_nx):
+                filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.acyc.graph'
+                write_to_catfish_format(dbGraph_nx, filename)
+        else:
+            n_cycles = count_simple_cycles(dbGraph_nx, 1000)
+            if n_cycles >= args.mincycles:
+                filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.mincyc{n_cycles}.graph'
+                write_to_catfish_format(dbGraph_nx, filename)
 
         # activate these for debugging
         # dbGraph_dot = network2dot(dbGraph_nx)
