@@ -148,7 +148,7 @@ def satisfies_flow_conservation(G):
     return True
 
 def network2dot(nxDigraph):
-    dot = Digraph()
+    dot = Digraph(format='pdf')
     dot.graph_attr['rankdir'] = 'LR' # Display the graph in landscape mode
     dot.node_attr['shape'] = 'rectangle' # Rectangle nodes
     
@@ -275,11 +275,15 @@ for gt in range(args.ngenomes,args.ngenomes+1):
             if nx.is_directed_acyclic_graph(dbGraph_nx):
                 filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.acyc.graph'
                 write_to_catfish_format(dbGraph_nx, filename)
+                dbGraph_dot = network2dot(dbGraph_nx)
+                dbGraph_dot.render(filename)
         else:
             n_cycles = count_simple_cycles(dbGraph_nx, 1000)
             if n_cycles >= args.mincycles:
                 filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.mincyc{n_cycles}.graph'
                 write_to_catfish_format(dbGraph_nx, filename)
+                dbGraph_dot = network2dot(dbGraph_nx)
+                dbGraph_dot.render(filename)
 
         # activate these for debugging
         # dbGraph_dot = network2dot(dbGraph_nx)
