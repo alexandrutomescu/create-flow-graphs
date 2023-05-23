@@ -276,14 +276,14 @@ for gt in range(args.ngenomes,args.ngenomes+1):
                 filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.acyc.graph'
                 write_to_catfish_format(dbGraph_nx, filename)
                 dbGraph_dot = network2dot(dbGraph_nx)
-                dbGraph_dot.render(filename)
+                dbGraph_dot.render(filename + ".dot")
         else:
             n_cycles = count_simple_cycles(dbGraph_nx, 1000)
             if n_cycles >= args.mincycles:
                 filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.mincyc{n_cycles}.graph'
                 write_to_catfish_format(dbGraph_nx, filename)
                 dbGraph_dot = network2dot(dbGraph_nx)
-                dbGraph_dot.render(filename)
+                dbGraph_dot.render(filename + ".dot")
 
         # activate these for debugging
         # dbGraph_dot = network2dot(dbGraph_nx)
