@@ -204,6 +204,7 @@ parser.add_argument('-c', '--mincycles', type=int, default=0, help='Keep only gr
 parser.add_argument('-d', '--distribution', type=str, default='lognormal-44', help='lognormal-44 or lognormal11')
 parser.add_argument('-g', '--ngenomes', type=int, help='The number of ecoli genomes from which to construct the graph', required=True)
 parser.add_argument('-o', '--outdir', type=str, default='', help='outputdir', required=True)
+parser.add_argument('-p', '--pdf', action='store_true', help='render pdf')
 
 args = parser.parse_args()
 
@@ -278,12 +279,15 @@ for gt in range(args.ngenomes,args.ngenomes+1):
                 dbGraph_dot = network2dot(dbGraph_nx)
                 dbGraph_dot.render(filename + ".dot")
         else:
-            n_cycles = count_simple_cycles(dbGraph_nx, 1000)
+            n_cycles = 0
+            if args.mincycles > 0:
+                n_cycles = count_simple_cycles(dbGraph_nx, 1000)
             if n_cycles >= args.mincycles:
                 filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.mincyc{n_cycles}.graph'
                 write_to_catfish_format(dbGraph_nx, filename)
                 dbGraph_dot = network2dot(dbGraph_nx)
-                dbGraph_dot.render(filename + ".dot")
+                if args.pdf:
+                    dbGraph_dot.render(filename + ".dot")
 
         # activate these for debugging
         # dbGraph_dot = network2dot(dbGraph_nx)
