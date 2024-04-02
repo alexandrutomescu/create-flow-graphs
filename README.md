@@ -26,7 +26,7 @@ We restrict the above procedure to non-overlapping windows of length `--windowsi
                         The number of ecoli genomes from which to construct the graph
   -o OUTDIR, --outdir OUTDIR
                         outputdir
-  -p, ----pdf
+  -p, --pdf
                         Render PDF
 ```
 
