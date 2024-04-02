@@ -198,13 +198,13 @@ parser = argparse.ArgumentParser(
     formatter_class=argparse.RawTextHelpFormatter
     )
 parser.add_argument('-k', '--kmersize', type=int, default=15, help='The kmer size')
-parser.add_argument('-w', '--windowsize', type=int, default=2000, help='The length of the genome windows from which to build the graphs')
+parser.add_argument('-w', '--windowsize', type=int, default=2000, help='The length of the genome windows from which to build the graphs. Use 0 for whole genomes.')
 parser.add_argument('-a', '--acyclic', action='store_true', help='Keep only acyclic graphs')
 parser.add_argument('-c', '--mincycles', type=int, default=0, help='Keep only graphs with at least this many cycles')
 parser.add_argument('-d', '--distribution', type=str, default='lognormal-44', help='lognormal-44 or lognormal11')
 parser.add_argument('-g', '--ngenomes', type=int, help='The number of ecoli genomes from which to construct the graph', required=True)
 parser.add_argument('-o', '--outdir', type=str, default='', help='outputdir', required=True)
-parser.add_argument('-p', '--pdf', action='store_true', help='render pdf')
+parser.add_argument('-p', '--pdf', action='store_true', help='Render PDF')
 
 args = parser.parse_args()
 
@@ -240,14 +240,18 @@ os.mkdir(outdir)
 genomes = []
 range_increment = args.windowsize
 min_length = sys.maxsize
+max_length = 0
 
 for gt in range(args.ngenomes,args.ngenomes+1):
     for genomeFile in genomeFiles[:gt]:
         genome = get_genome('ecoli/' + genomeFile)
         min_length = min(min_length, len(genome))
+        max_length = max(max_length, len(genome))
         genomes.append(genome)
 
     progress = -1
+    if range_increment == 0:
+        range_increment = max_length
 
     for range_start in range(0,min_length,range_increment):
         # progress printing
