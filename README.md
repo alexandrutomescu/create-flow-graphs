@@ -15,7 +15,7 @@ We restrict the above procedure to non-overlapping windows of length `--windowsi
   -k KMERSIZE, --kmersize KMERSIZE [default 15]
                         The kmer size
   -w WINDOWSIZE, --windowsize WINDOWSIZE 
-                        The length of the genome windows from which to build the graphs [default 2000]
+                        The length of the genome windows from which to build the graphs. Use 0 for whole genomes. [default 2000]. 
   -a, --acyclic
                         Keep only acyclic graphs
   -c MINCYCLES, --mincycles MINCYCLES 
