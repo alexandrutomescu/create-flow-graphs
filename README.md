@@ -12,15 +12,16 @@ We restrict the above procedure to non-overlapping windows of length *w* (defaul
 
 ```
   -h, --help            show this help message and exit
-  -k KMERSIZE, --kmersize KMERSIZE
+  -k KMERSIZE, --kmersize KMERSIZE [default 15]
                         The kmer size
-  -w WINDOWSIZE, --windowsize WINDOWSIZE
-                        The length of the genome windows from which to build the graphs
-  -a, --acyclic         Keep only acyclic graphs
-  -c MINCYCLES, --mincycles MINCYCLES
-                        Keep only graphs with at least this many cycles
-  -d DISTRIBUTION, --distribution DISTRIBUTION
-                        lognormal-44 or lognormal11
+  -w WINDOWSIZE, --windowsize WINDOWSIZE 
+                        The length of the genome windows from which to build the graphs [default 2000]
+  -a, --acyclic
+                        Keep only acyclic graphs
+  -c MINCYCLES, --mincycles MINCYCLES 
+                        Keep only graphs with at least this many cycles [default 0]
+  -d DISTRIBUTION, --distribution DISTRIBUTION 
+                        lognormal-44 or lognormal11 [default lognormal-44]
   -g NGENOMES, --ngenomes NGENOMES
                         The number of ecoli genomes from which to construct the graph
   -o OUTDIR, --outdir OUTDIR
