@@ -36,6 +36,10 @@ We restrict the above procedure to non-overlapping windows of length `--windowsi
     python3 construct-flow-graph.py -o graphs-g15-w4000-acyc/ -k 15 -g 15 --acyclic --windowsize 4000 --pdf
 ```
 
+The above command will produce a directory `graphs-g15-w4000-acyc`, which will contain de Bruijn graphs of order `-k 15` from the first `-g 15` E.coli genomes, in windows of length `--windowsize 2000`, only `--acyclic`, and also render PDFs for these `--pdf`. One such graph is `gt15.kmer15.(4384000.4388000).V22.E42.acyc.graph` which looks like:
+
+![Example E.coli Graph](ecoli/gt15.kmer15.(4384000.4388000).V22.E42.acyc.graph.dot.pdf.png)
+
 ## Requirements:
 
 ```
