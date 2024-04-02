@@ -33,5 +33,13 @@ We restrict the above procedure to non-overlapping windows of length `--windowsi
 ## Example 
 
 ```
-    python3 construct-flow-graph.py -o graphs-g15-w4000-acyc/ -g 15 -a -w 4000
+    python3 construct-flow-graph.py -o graphs-g15-w4000-acyc/ -k 15 -g 15 --acyclic --windowsize 4000 --pdf
+```
+
+## Requirements:
+
+```
+    numpy
+    networkx
+    graphviz
 ```
