@@ -84,6 +84,26 @@ def augment_dbGraph_from_string(string, index, order, abundance):
             kmer_paths[index].append(kmer1)
         kmer_paths[index].append(kmer2)
 
+
+def construct_subpaths(genome, index, order):
+    global read_starts, subpaths, kmer2id
+
+    subpaths[index] = []
+    for start in read_starts[index]:
+        new_path = []
+        next_i = 0
+        for i in range(min(len(genome)-start-1-order, args.readlength)):
+            # nodes are k-1 mers
+            kmer = genome[start+i:start+i+order-1]
+            nodeid = kmer2id[kmer]
+            new_path.append(nodeid)
+            next_i = i + 1
+        kmer = genome[start+next_i+1:start+next_i+order]
+        if len(kmer) == order - 1:
+            nodeid = kmer2id[kmer]
+            new_path.append(nodeid)
+            subpaths[index].append(new_path)
+
 def convert_to_networkx_graph(graph):
     global nextId, s, t, kmer2id, paths, kmer_paths, genomeAbundances
     G = nx.DiGraph()
@@ -169,7 +189,7 @@ def count_simple_cycles(G, bound):
     return count
 
 def write_to_catfish_format(G, filename):
-    global s, t, genomeFiles, genomeAbundances, paths, removedNodes, args_str
+    global s, t, genomeFiles, genomeAbundances, paths, subpaths, removedNodes, args_str
 
     f = open(filename,"w")
     f.write(args_str + '\n')
@@ -177,19 +197,39 @@ def write_to_catfish_format(G, filename):
     f.write('#genomes: ')
     for genomeFile in genomeFiles[:len(paths)]:
         f.write(f'{genomeFile} ')
-    f.write('\n#ground truth paths, in the format \'weight node1 node2 node3 ... \'\n')
+    f.write('\n# ground truth paths, in the format \'weight node1 node2 node3 ... \'')
     for index, path in enumerate(paths):
-        f.write(f'# {genomeAbundances[index]} ')
+        f.write(f'\n#T {genomeAbundances[index]} ')
         for node in path:
             if node not in removedNodes:
                 f.write(f'{node} ')
-        f.write('\n')
+    if len(subpaths) > 0:
+        f.write('\n# subpath constraints, in the format \'node1 node2 node3 ... \'')
+        for gen_index in range(len(paths)):
+            f.write(f'\n# {gen_index} subpath constraints for genome')
+            for index, subpath in enumerate(subpaths[gen_index]):
+                f.write(f'\n#S ')
+                nodes_to_print = [node for node in subpath if node not in removedNodes]
+                if len(nodes_to_print) == 0:
+                    f.write(f'{s} {t}')
+                else:
+                    for node in nodes_to_print:
+                        f.write(f'{node} ')
 
-    f.write(f'{G.number_of_edges()}\n')
+    f.write(f'\n{G.number_of_edges()}')
     for u,v,a in G.edges(data=True):
-        f.write(f'{u} {v} {a["weight"]}\n')
+        f.write(f'\n{u} {v} {a["weight"]}')
     f.close()
 
+def simulate_read_starts(genome, index):
+    global read_starts, args
+
+    nreads = args.nreads
+
+    for _ in range(nreads):
+        # choose a random number between 0 and len(genome)-1
+        start = rng.integers(0, len(genome))
+        read_starts[index].append(start)
 
 parser = argparse.ArgumentParser(
     description="""
@@ -203,6 +243,8 @@ parser.add_argument('-a', '--acyclic', action='store_true', help='Keep only acyc
 parser.add_argument('-c', '--mincycles', type=int, default=0, help='Keep only graphs with at least this many cycles')
 parser.add_argument('-d', '--distribution', type=str, default='lognormal-44', help='lognormal-44 or lognormal11')
 parser.add_argument('-g', '--ngenomes', type=int, help='The number of ecoli genomes from which to construct the graph', required=True)
+parser.add_argument('-r', '--nreads', type=int, default=0, help='The number of reads to simulate per genome', required=False)
+parser.add_argument('-l', '--readlength', type=int, help='The length of the simulated reads', required=False)
 parser.add_argument('-o', '--outdir', type=str, default='', help='outputdir', required=True)
 parser.add_argument('-p', '--pdf', action='store_true', help='Render PDF')
 
@@ -214,15 +256,6 @@ command = (sys.argv[0] + ' ') + ' '.join( [pipes.quote(s) for s in sys.argv[1:]]
 args_str = ('#' + command + '\n#') + '\n#'.join(f'{k}={v}' for k, v in vars(args).items())
 print(args_str)
 print('--------------------------------------')
-
-rng = default_rng()
-if args.distribution == 'lognormal-44':
-    genomeAbundances = [ceil(x*1000) for x in rng.lognormal(mean=-4, sigma=4, size = args.ngenomes)]
-elif args.distribution == 'lognormal11':
-    genomeAbundances = [ceil(x*1000) for x in rng.lognormal(mean=1, sigma=1, size = args.ngenomes)]
-else:
-    print("ERROR: unknown distribution, set either lognormal-44 (default) or lognormal11")
-
 
 if args.acyclic and args.mincycles > 0:
     print("ERROR: you cannot set both --acyclic and --mincycles")
@@ -254,6 +287,14 @@ for gt in range(args.ngenomes,args.ngenomes+1):
         range_increment = max_length
 
     for range_start in range(0,min_length,range_increment):
+        rng = default_rng()
+        if args.distribution == 'lognormal-44':
+            genomeAbundances = [ceil(x*100) for x in rng.lognormal(mean=-4, sigma=4, size = args.ngenomes)]
+        elif args.distribution == 'lognormal11':
+            genomeAbundances = [ceil(x*10) for x in rng.lognormal(mean=1, sigma=1, size = args.ngenomes)]
+        else:
+            print("ERROR: unknown distribution, set either lognormal-44 (default) or lognormal11")
+
         # progress printing
         old_progress = progress
         progress = int(range_start / min_length * 100)
@@ -266,13 +307,22 @@ for gt in range(args.ngenomes,args.ngenomes+1):
         removedNodes = set() # stores the ids of the removed nodes
         paths = [[] for x in range(gt)] # an element for each path, stores the list of each node id on the path
         kmer_paths = [[] for x in range(gt)] # an element for each path, stores the list of kmer nodes on the path
-        
-        
+        read_starts = [[] for x in range(gt)] # a list for each genome, storing the starting positions of the reads
+        subpaths = [[] for x in range(gt)] # a list for each genome, storing the nodes of each read, with starting position in read_starts
+
         s, t, nextId = 0, 1, 2
         for index, genome in enumerate(genomes[:gt]):
-            augment_dbGraph_from_string(genome[range_start:range_start+range_increment], index, k, genomeAbundances[index])
+            genome_fragment = genome[range_start:range_start+range_increment]
+            augment_dbGraph_from_string(genome_fragment, index, k, genomeAbundances[index])
 
         dbGraph_nx = convert_to_networkx_graph(dbGraph)
+
+        if args.nreads > 0:
+            for index, genome in enumerate(genomes[:gt]):
+                genome_fragment = genome[range_start:range_start+range_increment]
+                simulate_read_starts(genome_fragment, index)
+                construct_subpaths(genome_fragment, index, k)
+
         compact_unary_nodes(dbGraph_nx)
         assert(satisfies_flow_conservation(dbGraph_nx))
 
@@ -285,7 +335,7 @@ for gt in range(args.ngenomes,args.ngenomes+1):
         else:
             n_cycles = 0
             if args.mincycles > 0:
-                n_cycles = count_simple_cycles(dbGraph_nx, 1000)
+                n_cycles = count_simple_cycles(dbGraph_nx, 100)
             if n_cycles >= args.mincycles:
                 filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.mincyc{n_cycles}.graph'
                 write_to_catfish_format(dbGraph_nx, filename)
