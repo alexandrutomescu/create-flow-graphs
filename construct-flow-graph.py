@@ -140,7 +140,7 @@ def convert_to_networkx_graph(graph):
     return G
 
 def compact_unary_nodes(G):
-    global removedNodes
+    global removedNodes, subpaths
 
     unaryNodes = []
     for v in G.nodes():
@@ -154,6 +154,12 @@ def compact_unary_nodes(G):
             G.remove_node(node)
             removedNodes.add(node)
             G.add_edge(u, w, weight=f)
+            for gen_index in range(len(subpaths)):
+                for subpath_index in range(len(subpaths[gen_index])):
+                    if node == subpaths[gen_index][subpath_index][0]:
+                        subpaths[gen_index][subpath_index][0] = u
+                    if node == subpaths[gen_index][subpath_index][-1]:
+                        subpaths[gen_index][subpath_index][-1] = w
 
 def satisfies_flow_conservation(G):
     
@@ -210,9 +216,7 @@ def write_to_catfish_format(G, filename):
             for index, subpath in enumerate(subpaths[gen_index]):
                 f.write(f'\n#S ')
                 nodes_to_print = [node for node in subpath if node not in removedNodes]
-                if len(nodes_to_print) == 0:
-                    f.write(f'{s} {t}')
-                else:
+                if len(nodes_to_print) > 0:
                     for node in nodes_to_print:
                         f.write(f'{node} ')
 
