@@ -1,0 +1,107 @@
+#gt5.kmer27.(1065000.1070000).V39.E54.mincyc2.e0.75
+#construct-flow-graph.py -o graphs-g5-w5000-k27-cyc-e0.75/ -g 5 -w 5000 -k 27 --mincycles 1 --nreads 5 --readlength 500 --distribution lognormal11 --pdf --erroreps 0.75
+#kmersize=27
+#windowsize=5000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=500
+#outdir=graphs-g5-w5000-k27-cyc-e0.75/
+#pdf=True
+#erroreps=0.75
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 5 0 17 34 62 99 126 150 177 240 267 270 313 317 496 507 534 578 611 616 643 701 4976 1 
+#T 61 0 1 
+#T 17 0 14926 1 
+#T 13 0 16448 16450 16511 16513 16448 16450 16663 16511 16513 1 
+#T 36 0 24195 17 34 24222 62 99 24248 126 150 24274 177 240 24300 267 270 24342 313 317 24510 496 507 24536 534 578 24568 611 616 24594 643 701 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 701 4976 
+#S 701 4976 
+#S 701 4976 
+#S 701 4976 
+#S 701 4976 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 14926 
+#S 0 14926 
+#S 0 14926 
+#S 0 14926 
+#S 0 14926 
+# 3 subpath constraints for genome
+#S 0 16448 
+#S 16513 1 
+#S 0 16448 16450 16511 16513 16448 
+#S 16513 1 
+#S 16513 1 
+# 4 subpath constraints for genome
+#S 643 701 
+#S 0 24195 
+#S 0 24195 
+#S 0 24195 
+#S 0 24195 
+54
+17 34 40
+34 62 7
+34 24222 38
+62 99 41
+99 126 3
+99 24248 35
+126 150 35
+150 177 4
+150 24274 34
+177 240 46
+240 267 7
+240 24300 43
+267 270 40
+270 313 6
+270 24342 34
+313 317 39
+317 496 8
+317 24510 37
+496 507 38
+507 534 3
+507 24536 34
+534 578 36
+578 611 5
+578 24568 40
+611 616 46
+616 643 4
+616 24594 42
+643 701 44
+701 1 31
+701 4976 3
+4976 1 3
+14926 1 12
+16448 16450 26
+16450 16511 10
+16450 16663 15
+16511 16513 26
+16513 16448 13
+16513 1 17
+16663 16511 10
+24195 17 41
+24222 62 38
+24248 126 31
+24274 177 31
+24300 267 33
+24342 313 34
+24510 496 34
+24536 534 36
+24568 611 31
+24594 643 41
+0 17 7
+0 1 56
+0 14926 18
+0 16448 10
+0 24195 37

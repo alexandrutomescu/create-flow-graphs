@@ -1,0 +1,83 @@
+#gt5.kmer27.(930000.935000).V21.E30.mincyc2.e0.75
+#construct-flow-graph.py -o graphs-g5-w5000-k27-cyc-e0.75/ -g 5 -w 5000 -k 27 --mincycles 1 --nreads 5 --readlength 500 --distribution lognormal11 --pdf --erroreps 0.75
+#kmersize=27
+#windowsize=5000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=500
+#outdir=graphs-g5-w5000-k27-cyc-e0.75/
+#pdf=True
+#erroreps=0.75
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 5 0 1 
+#T 26 0 6627 6628 7080 7107 7202 7229 8687 8714 9951 1 
+#T 10 0 14926 1 
+#T 69 0 6628 7080 14952 7107 7202 14978 7229 8687 15004 8714 9951 16655 1 
+#T 74 0 17195 17228 17330 17351 17195 17228 17330 17391 17351 17195 17228 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 7229 8687 
+#S 6628 7080 7107 7202 
+#S 0 6627 
+#S 7229 8687 8714 9951 
+#S 8714 9951 
+# 2 subpath constraints for genome
+#S 0 14926 
+#S 0 14926 
+#S 0 14926 
+#S 0 14926 
+#S 0 14926 
+# 3 subpath constraints for genome
+#S 8714 9951 16655 
+#S 8714 9951 16655 
+#S 7229 8687 
+#S 8714 9951 16655 
+#S 8714 9951 16655 
+# 4 subpath constraints for genome
+#S 17228 1 
+#S 17228 1 
+#S 17228 17330 17351 17195 17228 17330 17391 17351 17195 17228 1 
+#S 17228 17330 17391 17351 17195 17228 1 
+#S 17228 1 
+30
+6627 6628 31
+6628 7080 100
+7080 7107 27
+7080 14952 71
+7107 7202 97
+7202 7229 27
+7202 14978 61
+7229 8687 87
+8687 8714 28
+8687 15004 67
+8714 9951 93
+9951 1 29
+9951 16655 76
+14926 1 8
+14952 7107 60
+14978 7229 68
+15004 8714 68
+16655 1 65
+17195 17228 217
+17228 17330 145
+17228 1 66
+17330 17351 76
+17330 17391 80
+17351 17195 140
+17391 17351 78
+0 6628 77
+0 1 6
+0 6627 26
+0 14926 8
+0 17195 70

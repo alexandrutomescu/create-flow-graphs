@@ -1,0 +1,101 @@
+#gt5.kmer27.(245000.250000).V35.E49.mincyc3
+#construct-flow-graph.py -o graphs-g5-w5000-k27-cyc/ -g 5 -w 5000 -k 27 --mincycles 1 --nreads 5 --readlength 500 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=5000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=500
+#outdir=graphs-g5-w5000-k27-cyc/
+#pdf=True
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 51 0 9 18 45 88 115 124 172 178 217 256 298 319 346 373 388 2506 2517 3164 3169 2506 2517 3252 3164 3169 1 
+#T 96 0 5021 5048 8763 8765 8763 8765 1 
+#T 84 0 1 
+#T 52 0 5021 14931 5048 8763 8765 8763 8765 1 
+#T 24 0 19506 9 18 19532 45 88 19558 115 124 19605 172 178 19643 217 256 19684 298 319 19710 346 19736 373 388 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 388 2506 2517 3164 
+#S 3169 1 
+#S 2517 3164 
+#S 3169 1 
+#S 2517 3164 
+# 1 subpath constraints for genome
+#S 5048 8763 
+#S 5048 8763 
+#S 5048 8763 
+#S 8765 1 
+#S 0 5021 5048 8763 
+# 2 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 3 subpath constraints for genome
+#S 8765 1 
+#S 8765 1 
+#S 5048 8763 
+#S 8765 1 
+#S 5048 8763 
+# 4 subpath constraints for genome
+#S 0 19506 
+#S 0 19506 
+#S 0 19506 
+#S 0 19506 
+#S 0 19506 
+49
+9 18 75
+18 45 51
+18 19532 24
+45 88 75
+88 115 51
+88 19558 24
+115 124 75
+124 172 51
+124 19605 24
+172 178 75
+178 217 51
+178 19643 24
+217 256 75
+256 298 51
+256 19684 24
+298 319 75
+319 346 51
+319 19710 24
+346 373 51
+346 19736 24
+373 388 75
+388 2506 51
+388 1 24
+2506 2517 102
+2517 3164 51
+2517 3252 51
+3164 3169 102
+3169 2506 51
+3169 1 51
+3252 3164 51
+5021 5048 96
+5021 14931 52
+5048 8763 148
+8763 8765 296
+8765 8763 148
+8765 1 148
+14931 5048 52
+19506 9 24
+19532 45 24
+19558 115 24
+19605 172 24
+19643 217 24
+19684 298 24
+19710 346 24
+19736 373 24
+0 9 51
+0 5021 148
+0 1 84
+0 19506 24

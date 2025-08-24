@@ -1,4 +1,4 @@
-from math import ceil, floor
+from math import ceil, floor, sqrt, exp
 from re import L
 import sys
 import os
@@ -264,6 +264,7 @@ parser.add_argument('-r', '--nreads', type=int, default=0, help='The number of r
 parser.add_argument('-l', '--readlength', type=int, help='The length of the simulated reads', required=False)
 parser.add_argument('-o', '--outdir', type=str, default='', help='outputdir', required=True)
 parser.add_argument('-p', '--pdf', action='store_true', help='Render PDF')
+parser.add_argument('-e', '--erroreps', type=float, default=1.0, help='Epsilon in [0,1]; truncates Poisson(f) to central interval of width epsilon around median before sampling new (imperfect) edge flow. 1=full distribution, 0=deterministic at median.')
 
 args = parser.parse_args()
 
@@ -276,6 +277,10 @@ print('--------------------------------------')
 
 if args.acyclic and args.mincycles > 0:
     print("ERROR: you cannot set both --acyclic and --mincycles")
+    exit()
+
+if not (0.0 <= args.erroreps <= 1.0):
+    print("ERROR: --erroreps must be between 0 and 1")
     exit()
 
 k = args.kmersize
@@ -343,9 +348,76 @@ for gt in range(args.ngenomes,args.ngenomes+1):
         compact_unary_nodes(dbGraph_nx)
         assert(satisfies_flow_conservation(dbGraph_nx))
 
+        # Apply imperfect flow sampling if epsilon < 1 or even at 1 (full Poisson) per specification
+        def truncated_poisson_sample(lam, eps, rng):
+            # eps in [0,1]; central interval percentiles (0.5-eps/2, 0.5+eps/2)
+            if lam <= 0:
+                return 0
+            if eps >= 1 - 1e-12:
+                # sample full distribution
+                return int(rng.poisson(lam))
+            alpha = 0.5 - eps/2.0
+            beta = 0.5 + eps/2.0
+            if alpha < 0: alpha = 0.0
+            if beta > 1: beta = 1.0
+
+            # For eps == 0, both bounds collapse to median (closest k with CDF >= 0.5)
+            target_low = alpha
+            target_high = beta
+
+            # Compute CDF incrementally until reaching high percentile.
+            # Limit search to lam + 10*sqrt(lam) + 50 to cover tail mass.
+            k = 0
+            p = exp(-lam)  # P(X=0)
+            cdf = p
+            low_k = None
+            high_k = None
+            max_k = int(ceil(lam + 10*sqrt(lam) + 50))
+            probs = [p]
+            while (low_k is None or high_k is None) and k < max_k:
+                if low_k is None and cdf >= target_low:
+                    low_k = k
+                if high_k is None and cdf >= target_high:
+                    high_k = k
+                if high_k is not None and low_k is not None:
+                    break
+                k += 1
+                p = probs[-1] * lam / k  # recurrence
+                probs.append(p)
+                cdf += p
+            if low_k is None:
+                low_k = k
+            if high_k is None:
+                high_k = k
+
+            # Truncate probability mass to [low_k, high_k]
+            interval_probs = probs[low_k:high_k+1]
+            total_mass = sum(interval_probs)
+            if total_mass <= 0:
+                return int(round(lam))
+            # Normalize and sample
+            r = rng.random()
+            cum = 0.0
+            for offset, prob in enumerate(interval_probs):
+                cum += prob / total_mass
+                if r <= cum:
+                    return low_k + offset
+            return high_k
+
+        if args.erroreps < 1.0 or args.erroreps >= 0.0:
+            # Store original perfect flows for reference (optional)
+            for u, v, data in list(dbGraph_nx.edges(data=True)):
+                perfect = data['weight']
+                imperfect = truncated_poisson_sample(perfect, args.erroreps, rng)
+                # Ensure non-zero to preserve connectivity; if zero, keep at least 1 if perfect >0
+                if imperfect == 0 and perfect > 0:
+                    imperfect = 1 if args.erroreps > 0 else perfect  # if eps=0 median could be 0; allow 0
+                data['perfect_weight'] = perfect
+                data['weight'] = imperfect
+
         if args.acyclic:
             if nx.is_directed_acyclic_graph(dbGraph_nx):
-                filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.acyc'
+                filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.e{args.erroreps}.acyc'
                 write_to_catfish_format(dbGraph_nx, filename)
                 dbGraph_dot = network2dot(dbGraph_nx)
                 dbGraph_dot.render(filename + ".dot")
@@ -354,7 +426,7 @@ for gt in range(args.ngenomes,args.ngenomes+1):
             if args.mincycles > 0:
                 n_cycles = count_simple_cycles(dbGraph_nx, 100)
             if n_cycles >= args.mincycles:
-                filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.mincyc{n_cycles}'
+                filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.mincyc{n_cycles}.e{args.erroreps}'
                 write_to_catfish_format(dbGraph_nx, filename)
                 dbGraph_dot = network2dot(dbGraph_nx)
                 if args.pdf:

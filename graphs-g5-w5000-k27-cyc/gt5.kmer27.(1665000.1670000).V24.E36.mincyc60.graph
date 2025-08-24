@@ -1,0 +1,88 @@
+#gt5.kmer27.(1665000.1670000).V24.E36.mincyc60
+#construct-flow-graph.py -o graphs-g5-w5000-k27-cyc/ -g 5 -w 5000 -k 27 --mincycles 1 --nreads 5 --readlength 500 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=5000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=500
+#outdir=graphs-g5-w5000-k27-cyc/
+#pdf=True
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 18 0 1 
+#T 4 0 9951 1 
+#T 24 0 9992 10001 10004 10016 10025 10043 10070 10095 10121 10125 10146 10179 10206 10248 10262 10284 9992 10001 10004 10016 10025 10125 10146 10416 10179 10206 10457 10248 10262 10001 10004 10070 10095 10579 10121 10125 10146 10284 10016 10025 10043 1 
+#T 32 0 19717 1 
+#T 120 0 24692 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 0 9951 
+#S 0 9951 
+#S 0 9951 
+#S 0 9951 
+#S 0 9951 
+# 2 subpath constraints for genome
+#S 10146 10284 10016 10025 10043 1 
+#S 10146 10284 10016 10025 10043 1 
+#S 10043 1 
+#S 10043 1 
+#S 10043 1 
+# 3 subpath constraints for genome
+#S 0 19717 
+#S 0 19717 
+#S 0 19717 
+#S 0 19717 
+#S 0 19717 
+# 4 subpath constraints for genome
+#S 0 24692 
+#S 0 24692 
+#S 0 24692 
+#S 0 24692 
+#S 0 24692 
+36
+9951 1 4
+9992 10001 48
+10001 10004 72
+10004 10016 48
+10004 10070 24
+10016 10025 72
+10025 10043 48
+10025 10125 24
+10043 10070 24
+10043 1 24
+10070 10095 48
+10095 10121 24
+10095 10579 24
+10121 10125 48
+10125 10146 72
+10146 10179 24
+10146 10416 24
+10146 10284 24
+10179 10206 48
+10206 10248 24
+10206 10457 24
+10248 10262 48
+10262 10284 24
+10262 10001 24
+10284 9992 24
+10284 10016 24
+10416 10179 24
+10457 10248 24
+10579 10121 24
+19717 1 32
+24692 1 120
+0 1 18
+0 9951 4
+0 9992 24
+0 19717 32
+0 24692 120

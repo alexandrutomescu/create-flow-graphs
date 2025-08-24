@@ -1,0 +1,84 @@
+#gt5.kmer27.(4135000.4140000).V22.E31.mincyc32.e0.75
+#construct-flow-graph.py -o graphs-g5-w5000-k27-cyc-e0.75/ -g 5 -w 5000 -k 27 --mincycles 1 --nreads 5 --readlength 500 --distribution lognormal11 --pdf --erroreps 0.75
+#kmersize=27
+#windowsize=5000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=500
+#outdir=graphs-g5-w5000-k27-cyc-e0.75/
+#pdf=True
+#erroreps=0.75
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 34 0 1 
+#T 48 0 9951 1 
+#T 27 0 13593 13618 13686 13720 13773 13782 13814 13833 13861 13877 13904 13930 13593 13618 14142 13686 13720 14194 13773 13782 14225 13814 13833 14252 13861 13877 14278 13904 13930 1 
+#T 9 0 19766 1 
+#T 41 0 24741 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 0 9951 
+#S 0 9951 
+#S 0 9951 
+#S 0 9951 
+#S 0 9951 
+# 2 subpath constraints for genome
+#S 13930 1 
+#S 0 13593 
+#S 0 13593 
+#S 13618 13686 13720 13773 13782 13814 13833 13861 13877 13904 13930 13593 13618 14142 
+#S 13618 13686 13720 13773 13782 13814 13833 13861 13877 13904 13930 13593 13618 14142 
+# 3 subpath constraints for genome
+#S 0 19766 
+#S 0 19766 
+#S 0 19766 
+#S 0 19766 
+#S 0 19766 
+# 4 subpath constraints for genome
+#S 0 24741 
+#S 0 24741 
+#S 0 24741 
+#S 0 24741 
+#S 0 24741 
+31
+9951 1 53
+13593 13618 61
+13618 13686 27
+13618 14142 25
+13686 13720 51
+13720 13773 23
+13720 14194 26
+13773 13782 49
+13782 13814 29
+13782 14225 30
+13814 13833 60
+13833 13861 29
+13833 14252 21
+13861 13877 54
+13877 13904 21
+13877 14278 22
+13904 13930 53
+13930 13593 27
+13930 1 24
+14142 13686 27
+14194 13773 25
+14225 13814 27
+14252 13861 21
+14278 13904 26
+19766 1 8
+24741 1 36
+0 1 34
+0 9951 44
+0 13593 30
+0 19766 7
+0 24741 45

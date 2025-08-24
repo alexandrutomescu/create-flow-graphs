@@ -1,0 +1,84 @@
+#gt5.kmer27.(2825000.2830000).V21.E31.mincyc48.e0.75
+#construct-flow-graph.py -o graphs-g5-w5000-k27-cyc-e0.75/ -g 5 -w 5000 -k 27 --mincycles 1 --nreads 5 --readlength 500 --distribution lognormal11 --pdf --erroreps 0.75
+#kmersize=27
+#windowsize=5000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=500
+#outdir=graphs-g5-w5000-k27-cyc-e0.75/
+#pdf=True
+#erroreps=0.75
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 126 0 1 
+#T 50 0 9951 1 
+#T 57 0 14926 1 
+#T 27 0 18585 18603 18630 18638 18643 18671 18680 18708 18747 18789 18827 18895 18585 18603 18919 18630 18638 18671 18680 18997 18708 18747 19038 18789 18827 19105 18895 18919 18630 18638 18643 1 
+#T 27 0 24724 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 0 9951 
+#S 0 9951 
+#S 0 9951 
+#S 0 9951 
+#S 0 9951 
+# 2 subpath constraints for genome
+#S 0 14926 
+#S 0 14926 
+#S 0 14926 
+#S 0 14926 
+#S 0 14926 
+# 3 subpath constraints for genome
+#S 0 18585 
+#S 0 18585 18603 18630 18638 18643 18671 18680 18708 18747 18789 18827 18895 18585 18603 
+#S 18643 1 
+#S 0 18585 
+#S 18747 19038 18789 18827 19105 18895 18919 18630 18638 18643 1 
+# 4 subpath constraints for genome
+#S 0 24724 
+#S 0 24724 
+#S 0 24724 
+#S 0 24724 
+#S 0 24724 
+31
+9951 1 49
+14926 1 58
+18585 18603 52
+18603 18630 33
+18603 18919 21
+18630 18638 71
+18638 18643 54
+18638 18671 28
+18643 18671 32
+18643 1 33
+18671 18680 54
+18680 18708 25
+18680 18997 29
+18708 18747 46
+18747 18789 23
+18747 19038 27
+18789 18827 53
+18827 18895 21
+18827 19105 23
+18895 18585 21
+18895 18919 31
+18919 18630 60
+18997 18708 24
+19038 18789 23
+19105 18895 23
+24724 1 30
+0 1 122
+0 9951 56
+0 14926 52
+0 18585 22
+0 24724 27

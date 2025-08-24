@@ -1,0 +1,85 @@
+#gt5.kmer27.(585000.590000).V22.E32.mincyc16.e0.75
+#construct-flow-graph.py -o graphs-g5-w5000-k27-cyc-e0.75/ -g 5 -w 5000 -k 27 --mincycles 1 --nreads 5 --readlength 500 --distribution lognormal11 --pdf --erroreps 0.75
+#kmersize=27
+#windowsize=5000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=500
+#outdir=graphs-g5-w5000-k27-cyc-e0.75/
+#pdf=True
+#erroreps=0.75
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 103 0 1 
+#T 7 0 4978 4979 5607 5613 6095 6122 6219 6222 6555 7257 5607 5613 7673 7700 6219 6222 8337 6555 9338 7257 9938 1 
+#T 16 0 14913 1 
+#T 12 0 4979 5607 5613 6095 14939 6122 6219 6222 6555 7257 5607 5613 7673 14965 7700 6219 6222 8337 6555 9338 7257 9938 14967 1 
+#T 16 0 19942 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 7700 6219 6222 8337 6555 9338 
+#S 4979 5607 5613 6095 
+#S 5613 6095 6122 6219 6222 6555 
+#S 7257 9938 
+#S 6222 6555 7257 
+# 2 subpath constraints for genome
+#S 0 14913 
+#S 0 14913 
+#S 0 14913 
+#S 0 14913 
+#S 0 14913 
+# 3 subpath constraints for genome
+#S 7257 9938 
+#S 4979 5607 
+#S 6555 7257 5607 
+#S 6555 9338 7257 9938 
+#S 6222 8337 6555 9338 
+# 4 subpath constraints for genome
+#S 0 19942 
+#S 0 19942 
+#S 0 19942 
+#S 0 19942 
+#S 0 19942 
+32
+4978 4979 7
+4979 5607 18
+5607 5613 39
+5613 6095 18
+5613 7673 15
+6095 6122 9
+6095 14939 14
+6122 6219 24
+6219 6222 34
+6222 6555 19
+6222 8337 22
+6555 7257 17
+6555 9338 16
+7257 5607 21
+7257 9938 19
+7673 7700 7
+7673 14965 14
+7700 6219 20
+8337 6555 19
+9338 7257 18
+9938 1 5
+9938 14967 12
+14913 1 12
+14939 6122 12
+14965 7700 13
+14967 1 14
+19942 1 20
+0 4979 14
+0 1 107
+0 4978 10
+0 14913 11
+0 19942 19

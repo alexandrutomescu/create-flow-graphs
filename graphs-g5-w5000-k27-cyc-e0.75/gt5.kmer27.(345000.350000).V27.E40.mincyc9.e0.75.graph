@@ -1,0 +1,93 @@
+#gt5.kmer27.(345000.350000).V27.E40.mincyc9.e0.75
+#construct-flow-graph.py -o graphs-g5-w5000-k27-cyc-e0.75/ -g 5 -w 5000 -k 27 --mincycles 1 --nreads 5 --readlength 500 --distribution lognormal11 --pdf --erroreps 0.75
+#kmersize=27
+#windowsize=5000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=500
+#outdir=graphs-g5-w5000-k27-cyc-e0.75/
+#pdf=True
+#erroreps=0.75
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 24 0 4617 4644 4648 4678 4692 4719 4644 4648 4737 4757 4678 4692 4617 4787 4719 4644 4648 4737 4757 4678 4692 4617 4787 4737 4757 1 
+#T 8 0 5405 5432 7850 7875 9570 9597 9819 1 
+#T 26 0 1 
+#T 161 0 5405 14820 5432 7850 14843 7875 9570 14868 9597 9819 14870 1 
+#T 4 0 16550 16551 16592 16603 16550 16551 16689 16592 16603 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 4617 
+#S 0 4617 
+#S 0 4617 
+#S 0 4617 
+#S 0 4617 
+# 1 subpath constraints for genome
+#S 5432 7850 
+#S 5432 7850 
+#S 7875 9570 
+#S 5405 5432 7850 
+#S 5432 7850 
+# 2 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 3 subpath constraints for genome
+#S 
+#S 5432 7850 14843 7875 9570 
+#S 5432 7850 
+#S 5432 7850 
+#S 7875 9570 
+# 4 subpath constraints for genome
+#S 16603 1 
+#S 16603 1 
+#S 16603 1 
+#S 16603 1 
+#S 0 16550 
+40
+4617 4644 23
+4617 4787 47
+4644 4648 75
+4648 4737 44
+4648 4678 21
+4678 4692 68
+4692 4719 21
+4692 4617 43
+4719 4644 50
+4737 4757 71
+4757 4678 43
+4757 1 23
+4787 4719 22
+4787 4737 27
+5405 5432 5
+5405 14820 161
+5432 7850 181
+7850 7875 7
+7850 14843 160
+7875 9570 169
+9570 9597 9
+9570 14868 150
+9597 9819 155
+9819 1 9
+9819 14870 151
+14820 5432 170
+14843 7875 170
+14868 9597 161
+14870 1 155
+16550 16551 11
+16551 16592 5
+16551 16689 3
+16592 16603 10
+16603 16550 5
+16603 1 2
+16689 16592 2
+0 4617 24
+0 5405 160
+0 1 23
+0 16550 2

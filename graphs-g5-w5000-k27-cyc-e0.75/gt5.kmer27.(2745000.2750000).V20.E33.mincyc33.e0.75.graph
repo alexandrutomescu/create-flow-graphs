@@ -1,0 +1,86 @@
+#gt5.kmer27.(2745000.2750000).V20.E33.mincyc33.e0.75
+#construct-flow-graph.py -o graphs-g5-w5000-k27-cyc-e0.75/ -g 5 -w 5000 -k 27 --mincycles 1 --nreads 5 --readlength 500 --distribution lognormal11 --pdf --erroreps 0.75
+#kmersize=27
+#windowsize=5000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=500
+#outdir=graphs-g5-w5000-k27-cyc-e0.75/
+#pdf=True
+#erroreps=0.75
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 9 0 1 
+#T 14 0 5038 5046 5050 5077 5092 5096 5120 5123 5138 5147 5046 5050 5191 5199 5218 5092 5096 5123 5138 5147 5046 5050 5280 5218 5092 5096 5123 5138 5147 5038 5046 5050 5191 5199 5077 5092 5096 5120 5147 5046 5050 5191 5199 5138 5147 5046 5050 5191 5280 5218 5092 5096 5123 5138 5147 1 
+#T 85 0 13383 13389 13383 13389 13383 13389 1 
+#T 44 0 19473 1 
+#T 9 0 24448 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 5147 1 
+#S 5147 1 
+#S 5147 1 
+#S 5147 1 
+#S 5147 1 
+# 2 subpath constraints for genome
+#S 0 13383 
+#S 0 13383 
+#S 0 13383 
+#S 0 13383 
+#S 0 13383 13389 13383 13389 13383 13389 1 
+# 3 subpath constraints for genome
+#S 0 19473 
+#S 0 19473 
+#S 0 19473 
+#S 0 19473 
+#S 0 19473 
+# 4 subpath constraints for genome
+#S 0 24448 
+#S 0 24448 
+#S 0 24448 
+#S 0 24448 
+#S 0 24448 
+33
+5038 5046 30
+5046 5050 88
+5050 5077 11
+5050 5191 53
+5050 5280 14
+5077 5092 25
+5092 5096 69
+5096 5120 27
+5096 5123 37
+5120 5123 10
+5120 5147 11
+5123 5138 47
+5138 5147 71
+5147 5046 52
+5147 5038 13
+5147 1 13
+5191 5199 42
+5191 5280 15
+5199 5218 11
+5199 5077 13
+5199 5138 10
+5218 5092 38
+5280 5218 28
+13383 13389 258
+13389 13383 162
+13389 1 80
+19473 1 45
+24448 1 6
+0 1 7
+0 5038 15
+0 13383 91
+0 19473 52
+0 24448 8

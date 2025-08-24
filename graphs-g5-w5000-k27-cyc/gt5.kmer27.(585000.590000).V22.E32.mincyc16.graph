@@ -1,0 +1,84 @@
+#gt5.kmer27.(585000.590000).V22.E32.mincyc16
+#construct-flow-graph.py -o graphs-g5-w5000-k27-cyc/ -g 5 -w 5000 -k 27 --mincycles 1 --nreads 5 --readlength 500 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=5000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=500
+#outdir=graphs-g5-w5000-k27-cyc/
+#pdf=True
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 23 0 1 
+#T 16 0 4978 4979 5607 5613 6095 6122 6219 6222 6555 7257 5607 5613 7673 7700 6219 6222 8337 6555 9338 7257 9938 1 
+#T 36 0 14913 1 
+#T 23 0 4979 5607 5613 6095 14939 6122 6219 6222 6555 7257 5607 5613 7673 14965 7700 6219 6222 8337 6555 9338 7257 9938 14967 1 
+#T 18 0 19942 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 6555 9338 7257 9938 
+#S 6122 6219 6222 6555 7257 
+#S 6555 7257 5607 5613 7673 
+#S 6555 9338 7257 9938 
+#S 6555 7257 
+# 2 subpath constraints for genome
+#S 0 14913 
+#S 0 14913 
+#S 0 14913 
+#S 0 14913 
+#S 0 14913 
+# 3 subpath constraints for genome
+#S 6555 7257 5607 5613 7673 
+#S 6555 9338 7257 9938 
+#S 4979 5607 5613 6095 
+#S 7700 6219 6222 8337 6555 9338 
+#S 5613 6095 14939 6122 6219 6222 6555 
+# 4 subpath constraints for genome
+#S 0 19942 
+#S 0 19942 
+#S 0 19942 
+#S 0 19942 
+#S 0 19942 
+32
+4978 4979 16
+4979 5607 39
+5607 5613 78
+5613 6095 39
+5613 7673 39
+6095 6122 16
+6095 14939 23
+6122 6219 39
+6219 6222 78
+6222 6555 39
+6222 8337 39
+6555 7257 39
+6555 9338 39
+7257 5607 39
+7257 9938 39
+7673 7700 16
+7673 14965 23
+7700 6219 39
+8337 6555 39
+9338 7257 39
+9938 1 16
+9938 14967 23
+14913 1 36
+14939 6122 23
+14965 7700 23
+14967 1 23
+19942 1 18
+0 4979 23
+0 1 23
+0 4978 16
+0 14913 36
+0 19942 18
