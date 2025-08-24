@@ -91,18 +91,12 @@ def construct_subpaths(genome, index, order):
     subpaths[index] = []
     for start in read_starts[index]:
         new_path = []
-        next_i = 0
         for i in range(min(len(genome)-start-1-order, args.readlength)):
             # nodes are k-1 mers
             kmer = genome[start+i:start+i+order-1]
             nodeid = kmer2id[kmer]
             new_path.append(nodeid)
-            next_i = i + 1
-        kmer = genome[start+next_i+1:start+next_i+order]
-        if len(kmer) == order - 1:
-            nodeid = kmer2id[kmer]
-            new_path.append(nodeid)
-            subpaths[index].append(new_path)
+        subpaths[index].append(new_path)
 
 def convert_to_networkx_graph(graph):
     global nextId, s, t, kmer2id, paths, kmer_paths, genomeAbundances
@@ -156,10 +150,11 @@ def compact_unary_nodes(G):
             G.add_edge(u, w, weight=f)
             for gen_index in range(len(subpaths)):
                 for subpath_index in range(len(subpaths[gen_index])):
-                    if node == subpaths[gen_index][subpath_index][0]:
-                        subpaths[gen_index][subpath_index][0] = u
-                    if node == subpaths[gen_index][subpath_index][-1]:
-                        subpaths[gen_index][subpath_index][-1] = w
+                    if len(subpaths[gen_index][subpath_index]) > 0:
+                        if node == subpaths[gen_index][subpath_index][0]:
+                            subpaths[gen_index][subpath_index][0] = u
+                        if node == subpaths[gen_index][subpath_index][-1]:
+                           subpaths[gen_index][subpath_index][-1] = w
 
 def satisfies_flow_conservation(G):
     
@@ -171,6 +166,18 @@ def satisfies_flow_conservation(G):
             if in_flow != out_flow:
                 return False
 
+    return True
+
+def check_subpaths(G):
+    global s, t, subpaths
+    for gen_index in range(len(subpaths)):
+        for subpath_index in range(len(subpaths[gen_index])):
+            subpath = subpaths[gen_index][subpath_index]
+            # check that every edge in subpath (i.e. pairs of adjacent list entries, i.e. nodes) is an edge of G
+            for i in range(len(subpath)-1):
+                if not G.has_edge(subpath[i], subpath[i+1]):
+                    print(f"Invalid subpath edge {(subpath[i], subpath[i+1])} for genome {gen_index}: {subpath}")
+                    return False
     return True
 
 def network2dot(nxDigraph):
@@ -197,7 +204,8 @@ def count_simple_cycles(G, bound):
 def write_to_catfish_format(G, filename):
     global s, t, genomeFiles, genomeAbundances, paths, subpaths, removedNodes, args_str
 
-    f = open(filename,"w")
+    f = open(filename + ".graph","w")
+    f.write(f'#{os.path.basename(filename)}\n')
     f.write(args_str + '\n')
     f.write(f'#unique source is {s}, unique sink is {t}\n')
     f.write('#genomes: ')
@@ -216,7 +224,12 @@ def write_to_catfish_format(G, filename):
             for index, subpath in enumerate(subpaths[gen_index]):
                 f.write(f'\n#S ')
                 nodes_to_print = [node for node in subpath if node not in removedNodes]
+                # check that there is a graph edge for each pair of adjacent nodes
                 if len(nodes_to_print) > 0:
+                    for i in range(len(nodes_to_print)-1):
+                        if not G.has_edge(nodes_to_print[i], nodes_to_print[i+1]):
+                            print(f"Invalid subpath edge {(nodes_to_print[i], nodes_to_print[i+1])} for genome {gen_index}: {subpath}")
+                            break
                     for node in nodes_to_print:
                         f.write(f'{node} ')
 
@@ -332,7 +345,7 @@ for gt in range(args.ngenomes,args.ngenomes+1):
 
         if args.acyclic:
             if nx.is_directed_acyclic_graph(dbGraph_nx):
-                filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.acyc.graph'
+                filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.acyc'
                 write_to_catfish_format(dbGraph_nx, filename)
                 dbGraph_dot = network2dot(dbGraph_nx)
                 dbGraph_dot.render(filename + ".dot")
@@ -341,7 +354,7 @@ for gt in range(args.ngenomes,args.ngenomes+1):
             if args.mincycles > 0:
                 n_cycles = count_simple_cycles(dbGraph_nx, 100)
             if n_cycles >= args.mincycles:
-                filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.mincyc{n_cycles}.graph'
+                filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.mincyc{n_cycles}'
                 write_to_catfish_format(dbGraph_nx, filename)
                 dbGraph_dot = network2dot(dbGraph_nx)
                 if args.pdf:
