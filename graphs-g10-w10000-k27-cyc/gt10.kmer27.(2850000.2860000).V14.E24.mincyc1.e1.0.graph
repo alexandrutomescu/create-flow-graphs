@@ -1,0 +1,112 @@
+#gt10.kmer27.(2850000.2860000).V14.E24.mincyc1.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 23 0 1345 1346 9976 1 
+#T 24 0 1 
+#T 72 0 29926 1 
+#T 6 0 39901 1 
+#T 56 0 49876 1 
+#T 19 0 1346 9976 51220 1 
+#T 24 0 61195 1 
+#T 18 0 71170 1 
+#T 5 0 81145 1 
+#T 128 0 88745 88749 88745 88749 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 1346 9976 
+#S 0 1345 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+# 4 subpath constraints for genome
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+# 5 subpath constraints for genome
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+# 6 subpath constraints for genome
+#S 0 61195 
+#S 0 61195 
+#S 0 61195 
+#S 0 61195 
+#S 0 61195 
+# 7 subpath constraints for genome
+#S 0 71170 
+#S 0 71170 
+#S 0 71170 
+#S 0 71170 
+#S 0 71170 
+# 8 subpath constraints for genome
+#S 0 81145 
+#S 0 81145 
+#S 0 81145 
+#S 0 81145 
+#S 0 81145 
+# 9 subpath constraints for genome
+#S 88749 1 
+#S 0 88745 
+#S 0 88745 
+#S 0 88745 
+#S 88749 1 
+24
+1345 1346 24
+1346 9976 47
+9976 1 28
+9976 51220 19
+29926 1 83
+39901 1 10
+49876 1 68
+51220 1 25
+61195 1 17
+71170 1 22
+81145 1 6
+88745 88749 253
+88749 88745 116
+88749 1 131
+0 1346 14
+0 1345 21
+0 1 21
+0 29926 72
+0 39901 12
+0 49876 60
+0 61195 19
+0 71170 12
+0 81145 1
+0 88745 123

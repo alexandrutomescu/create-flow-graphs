@@ -1,0 +1,112 @@
+#gt10.kmer27.(4450000.4460000).V14.E24.mincyc1.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 8 0 2 5296 9976 1 
+#T 12 0 1 
+#T 19 0 29926 1 
+#T 8 0 39901 1 
+#T 146 0 49876 1 
+#T 70 0 54556 2 5296 1 
+#T 11 0 64531 1 
+#T 118 0 74506 1 
+#T 11 0 81418 81425 81418 81425 1 
+#T 39 0 94448 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 5296 9976 
+#S 5296 9976 
+#S 2 5296 
+#S 5296 9976 
+#S 2 5296 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+# 4 subpath constraints for genome
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+# 5 subpath constraints for genome
+#S 2 5296 
+#S 0 54556 
+#S 2 5296 
+#S 0 54556 
+#S 0 54556 
+# 6 subpath constraints for genome
+#S 0 64531 
+#S 0 64531 
+#S 0 64531 
+#S 0 64531 
+#S 0 64531 
+# 7 subpath constraints for genome
+#S 0 74506 
+#S 0 74506 
+#S 0 74506 
+#S 0 74506 
+#S 0 74506 
+# 8 subpath constraints for genome
+#S 0 81418 81425 81418 
+#S 0 81418 
+#S 81425 1 
+#S 0 81418 
+#S 81425 81418 
+# 9 subpath constraints for genome
+#S 0 94448 
+#S 0 94448 
+#S 0 94448 
+#S 0 94448 
+#S 0 94448 
+24
+2 5296 90
+5296 1 66
+5296 9976 6
+9976 1 5
+29926 1 20
+39901 1 11
+49876 1 146
+54556 2 79
+64531 1 13
+74506 1 120
+81418 81425 25
+81425 81418 12
+81425 1 11
+94448 1 44
+0 2 11
+0 1 15
+0 29926 18
+0 39901 8
+0 49876 124
+0 54556 76
+0 64531 19
+0 74506 124
+0 81418 10
+0 94448 38

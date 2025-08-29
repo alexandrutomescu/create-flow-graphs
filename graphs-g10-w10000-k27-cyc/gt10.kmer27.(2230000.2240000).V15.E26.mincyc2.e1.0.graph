@@ -1,0 +1,114 @@
+#gt10.kmer27.(2230000.2240000).V15.E26.mincyc2.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 276 0 2 6548 6550 6642 6548 6550 1 
+#T 21 0 1 
+#T 23 0 29923 1 
+#T 51 0 39898 1 
+#T 20 0 47454 47467 47454 47467 1 
+#T 24 0 53193 2 6548 6550 6642 1 
+#T 11 0 63168 1 
+#T 11 0 73143 1 
+#T 12 0 83118 1 
+#T 15 0 93093 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 2 6548 
+#S 6550 1 
+#S 2 6548 
+#S 2 6548 6550 6642 6548 6550 1 
+#S 6550 1 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29923 
+#S 0 29923 
+#S 0 29923 
+#S 0 29923 
+#S 0 29923 
+# 3 subpath constraints for genome
+#S 0 39898 
+#S 0 39898 
+#S 0 39898 
+#S 0 39898 
+#S 0 39898 
+# 4 subpath constraints for genome
+#S 0 47454 
+#S 0 47454 
+#S 0 47454 
+#S 0 47454 
+#S 0 47454 
+# 5 subpath constraints for genome
+#S 2 6548 
+#S 2 6548 
+#S 2 6548 
+#S 2 6548 
+#S 0 53193 
+# 6 subpath constraints for genome
+#S 0 63168 
+#S 0 63168 
+#S 0 63168 
+#S 0 63168 
+#S 0 63168 
+# 7 subpath constraints for genome
+#S 0 73143 
+#S 0 73143 
+#S 0 73143 
+#S 0 73143 
+#S 0 73143 
+# 8 subpath constraints for genome
+#S 0 83118 
+#S 0 83118 
+#S 0 83118 
+#S 0 83118 
+#S 0 83118 
+# 9 subpath constraints for genome
+#S 0 93093 
+#S 0 93093 
+#S 0 93093 
+#S 0 93093 
+#S 0 93093 
+26
+2 6548 302
+6548 6550 605
+6550 6642 281
+6550 1 273
+6642 1 33
+6642 6548 275
+29923 1 21
+39898 1 61
+47454 47467 33
+47467 47454 21
+47467 1 17
+53193 2 31
+63168 1 8
+73143 1 11
+83118 1 7
+93093 1 13
+0 2 283
+0 1 32
+0 29923 18
+0 39898 63
+0 47454 17
+0 53193 29
+0 63168 12
+0 73143 11
+0 83118 9
+0 93093 17

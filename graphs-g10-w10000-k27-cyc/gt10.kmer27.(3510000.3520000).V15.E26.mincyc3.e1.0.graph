@@ -1,0 +1,114 @@
+#gt10.kmer27.(3510000.3520000).V15.E26.mincyc3.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 11 0 1 
+#T 27 0 19951 1 
+#T 53 0 29926 1 
+#T 15 0 39901 1 
+#T 19 0 40370 40402 40370 40402 1 
+#T 16 0 59818 1 
+#T 170 0 69793 1 
+#T 61 0 79768 1 
+#T 22 0 89743 1 
+#T 52 0 94909 94964 95013 94909 94964 95066 95013 94909 94964 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+# 4 subpath constraints for genome
+#S 40402 1 
+#S 40402 1 
+#S 40402 1 
+#S 40402 1 
+#S 40402 1 
+# 5 subpath constraints for genome
+#S 0 59818 
+#S 0 59818 
+#S 0 59818 
+#S 0 59818 
+#S 0 59818 
+# 6 subpath constraints for genome
+#S 0 69793 
+#S 0 69793 
+#S 0 69793 
+#S 0 69793 
+#S 0 69793 
+# 7 subpath constraints for genome
+#S 0 79768 
+#S 0 79768 
+#S 0 79768 
+#S 0 79768 
+#S 0 79768 
+# 8 subpath constraints for genome
+#S 0 89743 
+#S 0 89743 
+#S 0 89743 
+#S 0 89743 
+#S 0 89743 
+# 9 subpath constraints for genome
+#S 94964 1 
+#S 94964 1 
+#S 0 94909 
+#S 94964 1 
+#S 0 94909 94964 95013 94909 94964 95066 95013 94909 94964 1 
+26
+19951 1 35
+29926 1 52
+39901 1 17
+40370 40402 45
+40402 40370 24
+40402 1 16
+59818 1 12
+69793 1 168
+79768 1 66
+89743 1 25
+94909 94964 184
+94964 95013 51
+94964 95066 38
+94964 1 38
+95013 94909 105
+95066 95013 77
+0 1 11
+0 19951 27
+0 29926 52
+0 39901 11
+0 40370 25
+0 59818 12
+0 69793 186
+0 79768 66
+0 89743 19
+0 94909 67

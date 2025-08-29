@@ -1,0 +1,116 @@
+#gt10.kmer27.(2020000.2030000).V17.E28.mincyc2.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 9 0 2 7839 9976 1 
+#T 26 0 1 
+#T 39 0 29926 1 
+#T 28 0 39901 1 
+#T 58 0 49876 1 
+#T 42 0 52013 2 7839 1 
+#T 38 0 61988 1 
+#T 22 0 71963 1 
+#T 33 0 81938 1 
+#T 7 0 91067 91070 91097 91129 91067 91070 91254 91097 91129 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 2 7839 
+#S 2 7839 
+#S 7839 9976 
+#S 2 7839 9976 
+#S 2 7839 9976 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+# 4 subpath constraints for genome
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+# 5 subpath constraints for genome
+#S 2 7839 
+#S 2 7839 
+#S 2 7839 
+#S 2 7839 
+#S 2 7839 
+# 6 subpath constraints for genome
+#S 0 61988 
+#S 0 61988 
+#S 0 61988 
+#S 0 61988 
+#S 0 61988 
+# 7 subpath constraints for genome
+#S 0 71963 
+#S 0 71963 
+#S 0 71963 
+#S 0 71963 
+#S 0 71963 
+# 8 subpath constraints for genome
+#S 0 81938 
+#S 0 81938 
+#S 0 81938 
+#S 0 81938 
+#S 0 81938 
+# 9 subpath constraints for genome
+#S 0 91067 
+#S 0 91067 
+#S 91129 1 
+#S 0 91067 
+#S 0 91067 
+28
+2 7839 50
+7839 1 50
+7839 9976 9
+9976 1 8
+29926 1 39
+39901 1 28
+49876 1 67
+52013 2 41
+61988 1 36
+71963 1 17
+81938 1 33
+91067 91070 17
+91070 91097 9
+91070 91254 6
+91097 91129 19
+91129 91067 4
+91129 1 6
+91254 91097 7
+0 2 12
+0 1 24
+0 29926 43
+0 39901 25
+0 49876 66
+0 52013 42
+0 61988 41
+0 71963 29
+0 81938 25
+0 91067 6

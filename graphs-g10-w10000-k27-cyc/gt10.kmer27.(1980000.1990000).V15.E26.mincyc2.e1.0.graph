@@ -1,0 +1,114 @@
+#gt10.kmer27.(1980000.1990000).V15.E26.mincyc2.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 7 0 2 7839 9976 1 
+#T 119 0 1 
+#T 44 0 29926 1 
+#T 34 0 34479 34519 34479 34519 34537 34537 1 
+#T 101 0 49834 1 
+#T 40 0 51971 2 7839 1 
+#T 31 0 61946 1 
+#T 22 0 71921 1 
+#T 29 0 81896 1 
+#T 23 0 91871 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 7839 9976 
+#S 2 7839 
+#S 2 7839 
+#S 2 7839 
+#S 2 7839 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 34537 1 
+#S 0 34479 
+#S 34537 1 
+#S 34537 1 
+#S 34537 1 
+# 4 subpath constraints for genome
+#S 0 49834 
+#S 0 49834 
+#S 0 49834 
+#S 0 49834 
+#S 0 49834 
+# 5 subpath constraints for genome
+#S 0 51971 2 7839 
+#S 2 7839 
+#S 2 7839 
+#S 2 7839 
+#S 2 7839 
+# 6 subpath constraints for genome
+#S 0 61946 
+#S 0 61946 
+#S 0 61946 
+#S 0 61946 
+#S 0 61946 
+# 7 subpath constraints for genome
+#S 0 71921 
+#S 0 71921 
+#S 0 71921 
+#S 0 71921 
+#S 0 71921 
+# 8 subpath constraints for genome
+#S 0 81896 
+#S 0 81896 
+#S 0 81896 
+#S 0 81896 
+#S 0 81896 
+# 9 subpath constraints for genome
+#S 0 91871 
+#S 0 91871 
+#S 0 91871 
+#S 0 91871 
+#S 0 91871 
+26
+2 7839 45
+7839 1 26
+7839 9976 11
+9976 1 4
+29926 1 37
+34479 34519 57
+34519 34479 34
+34519 34537 38
+34537 34537 39
+34537 1 36
+49834 1 94
+51971 2 37
+61946 1 33
+71921 1 21
+81896 1 33
+91871 1 28
+0 2 8
+0 1 134
+0 29926 49
+0 34479 40
+0 49834 97
+0 51971 41
+0 61946 31
+0 71921 26
+0 81896 30
+0 91871 18

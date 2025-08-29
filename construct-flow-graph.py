@@ -8,57 +8,8 @@ from graphviz import Digraph
 import argparse
 from numpy.random import default_rng
 
-dnaBases = ['A','C','G','T']
-genomeFiles = ['GCA_000005845.2_ASM584v2.fna',
-    'GCA_000006665.1_ASM666v1.fna',
-    'GCA_000007445.1_ASM744v1.fna',
-    'GCA_000008865.2_ASM886v2.fna',
-    'GCA_000009565.2_ASM956v1.fna',
-    'GCA_000010245.1_ASM1024v1.fna',
-    'GCA_000010385.1_ASM1038v1.fna',
-    'GCA_000010485.1_ASM1048v1.fna',
-    'GCA_000010745.1_ASM1074v1.fna',
-    'GCA_000010765.1_ASM1076v1.fna',
-    'GCA_000013265.1_ASM1326v1.fna',
-    'GCA_000013305.1_ASM1330v1.fna',
-    'GCA_000014845.1_ASM1484v1.fna',
-    'GCA_000017745.1_ASM1774v1.fna',
-    'GCA_000017765.1_ASM1776v1.fna',
-    'GCA_000017985.1_ASM1798v1.fna',
-    'GCA_000019385.1_ASM1938v1.fna',
-    'GCA_000019425.1_ASM1942v1.fna',
-    'GCA_000019645.1_ASM1964v1.fna',
-    'GCA_000021125.1_ASM2112v1.fna',
-    'GCA_000022225.1_ASM2222v1.fna',
-    'GCA_000022345.1_ASM2234v1.fna',
-    'GCA_000022665.2_ASM2266v1.fna',
-    'GCA_000023365.1_ASM2336v1.fna',
-    'GCA_000023665.1_ASM2366v1.fna',
-    'GCA_000025165.1_ASM2516v1.fna',
-    'GCA_000025745.1_ASM2574v1.fna',
-    'GCA_000026245.1_ASM2624v1.fna',
-    'GCA_000026265.1_ASM2626v1.fna',
-    'GCA_000026285.2_ASM2628v2.fna',
-    'GCA_000026305.1_ASM2630v1.fna',
-    'GCA_000026325.2_ASM2632v2.fna',
-    'GCA_000026345.1_ASM2634v1.fna',
-    'GCA_000026545.1_ASM2654v1.fna',
-    'GCA_000027125.1_ASM2712v1.fna',
-    'GCA_000091005.1_ASM9100v1.fna',
-    'GCA_000146735.1_ASM14673v1.fna',
-    'GCA_000147755.2_ASM14775v1.fna',
-    'GCA_000147855.3_ASM14785v3.fna',
-    'GCA_000148365.1_ASM14836v1.fna',
-    'GCA_000148605.1_ASM14860v1.fna',
-    'GCA_000155005.1_ASM15500v1.fna',
-    'GCA_000155125.1_ASM15512v1.fna',
-    'GCA_000157115.2_Escherichia_sp_3_2_53FAA_V2.fna',
-    'GCA_000158395.1_ASM15839v1.fna',
-    'GCA_000159295.1_ASM15929v1.fna',
-    'GCA_000163155.1_ASM16315v1.fna',
-    'GCA_000163175.1_ASM16317v1.fna',
-    'GCA_000163195.1_ASM16319v1.fna',
-    'GCA_000163215.1_ASM16321v1.fna']
+# Will be assigned based on selected dataset (ecoli or labmix) by listing directory contents.
+genomeFiles = []
 
 
 def get_genome(filePath):
@@ -156,17 +107,27 @@ def compact_unary_nodes(G):
                         if node == subpaths[gen_index][subpath_index][-1]:
                            subpaths[gen_index][subpath_index][-1] = w
 
-def satisfies_flow_conservation(G):
-    
-    global s,t
-    for node in G.nodes():
-        if node not in [s,t]:
-            in_flow = sum([G[u][node]["weight"] for u in G.predecessors(node)])
-            out_flow = sum([G[node][w]["weight"] for w in G.successors(node)])
-            if in_flow != out_flow:
-                return False
+def satisfies_flow_conservation(G, tol=1e-6, verbose=False):
+    """Return True if every internal node satisfies flow conservation within tolerance.
 
-    return True
+    tol: absolute tolerance for comparing floating sums (needed after introducing float abundances).
+    verbose: if True, print first few violations for debugging.
+    """
+    global s, t
+    violations = 0
+    for node in G.nodes():
+        if node in (s, t):
+            continue
+        in_flow = sum(G[u][node]["weight"] for u in G.predecessors(node))
+        out_flow = sum(G[node][w]["weight"] for w in G.successors(node))
+        if abs(in_flow - out_flow) > tol:
+            violations += 1
+            if verbose and violations <= 5:
+                print(f"Flow violation at node {node}: in={in_flow} out={out_flow} diff={in_flow-out_flow}")
+            if violations > 5 and verbose:
+                print("... further violations suppressed ...")
+                break
+    return violations == 0
 
 def check_subpaths(G):
     global s, t, subpaths
@@ -264,7 +225,10 @@ parser.add_argument('-r', '--nreads', type=int, default=0, help='The number of r
 parser.add_argument('-l', '--readlength', type=int, help='The length of the simulated reads', required=False)
 parser.add_argument('-o', '--outdir', type=str, default='', help='outputdir', required=True)
 parser.add_argument('-p', '--pdf', action='store_true', help='Render PDF')
+parser.add_argument('--png', action='store_true', help='Render PNG image')
 parser.add_argument('-e', '--erroreps', type=float, default=1.0, help='Epsilon in [0,1]; truncates Poisson(f) to central interval of width epsilon around median before sampling new (imperfect) edge flow. 1=full distribution, 0=deterministic at median.')
+parser.add_argument('-D', '--dataset', type=str, default='ecoli', choices=['ecoli','labmix'], help='Dataset: ecoli (default) or labmix (excludes REF.fasta)')
+parser.add_argument('-A', '--abundances', type=str, default=None, help='Comma-separated list of abundances (floats) for the g genomes; mutually exclusive with --distribution and keeps exact float weights (no Poisson perturbation). Length must equal --ngenomes.')
 
 args = parser.parse_args()
 
@@ -283,8 +247,38 @@ if not (0.0 <= args.erroreps <= 1.0):
     print("ERROR: --erroreps must be between 0 and 1")
     exit()
 
+# Parse explicit abundances if provided
+provided_abundances = None
+if args.abundances is not None:
+    try:
+        provided_abundances = [float(x) for x in args.abundances.split(',') if x.strip() != '']
+    except ValueError:
+        print('ERROR: Could not parse --abundances (expect comma-separated floats)')
+        sys.exit(1)
+    if len(provided_abundances) != args.ngenomes:
+        print(f'ERROR: --abundances length ({len(provided_abundances)}) does not match --ngenomes ({args.ngenomes})')
+        sys.exit(1)
+    # Enforce mutual exclusivity: detect if user explicitly passed distribution flag
+    argv_flags = set(sys.argv[1:])
+    if '-d' in argv_flags or '--distribution' in argv_flags:
+        print('ERROR: --distribution cannot be used together with --abundances. Remove -d/--distribution when specifying explicit abundances.')
+        sys.exit(1)
+
 k = args.kmersize
 outdir = args.outdir.strip().strip("/")
+
+# Select dataset and populate genomeFiles
+if args.dataset == 'ecoli':
+    genome_dir = 'ecoli'
+    genomeFiles = [f for f in os.listdir(genome_dir) if f.endswith('.fna')]
+    genomeFiles.sort()
+elif args.dataset == 'labmix':
+    genome_dir = 'labmix'
+    genomeFiles = [f for f in os.listdir(genome_dir) if f.endswith('.fasta') and f != 'REF.fasta']
+    genomeFiles.sort()
+else:
+    print('ERROR: unknown dataset')
+    sys.exit(1)
 
 if os.path.isdir(outdir):
     print(f"ERROR: {outdir} already exists")
@@ -299,7 +293,7 @@ max_length = 0
 
 for gt in range(args.ngenomes,args.ngenomes+1):
     for genomeFile in genomeFiles[:gt]:
-        genome = get_genome('ecoli/' + genomeFile)
+        genome = get_genome(f'{genome_dir}/{genomeFile}')
         min_length = min(min_length, len(genome))
         max_length = max(max_length, len(genome))
         genomes.append(genome)
@@ -310,12 +304,15 @@ for gt in range(args.ngenomes,args.ngenomes+1):
 
     for range_start in range(0,min_length,range_increment):
         rng = default_rng()
-        if args.distribution == 'lognormal-44':
-            genomeAbundances = [ceil(x*100) for x in rng.lognormal(mean=-4, sigma=4, size = args.ngenomes)]
-        elif args.distribution == 'lognormal11':
-            genomeAbundances = [ceil(x*10) for x in rng.lognormal(mean=1, sigma=1, size = args.ngenomes)]
+        if provided_abundances is not None:
+            genomeAbundances = provided_abundances  # use floats exactly as provided
         else:
-            print("ERROR: unknown distribution, set either lognormal-44 (default) or lognormal11")
+            if args.distribution == 'lognormal-44':
+                genomeAbundances = [ceil(x*100) for x in rng.lognormal(mean=-4, sigma=4, size = args.ngenomes)]
+            elif args.distribution == 'lognormal11':
+                genomeAbundances = [ceil(x*10) for x in rng.lognormal(mean=1, sigma=1, size = args.ngenomes)]
+            else:
+                print("ERROR: unknown distribution, set either lognormal-44 (default) or lognormal11")
 
         # progress printing
         old_progress = progress
@@ -346,7 +343,8 @@ for gt in range(args.ngenomes,args.ngenomes+1):
                 construct_subpaths(genome_fragment, index, k)
 
         compact_unary_nodes(dbGraph_nx)
-        assert(satisfies_flow_conservation(dbGraph_nx))
+        if not satisfies_flow_conservation(dbGraph_nx, tol=1e-6, verbose=True):
+            raise AssertionError('Flow conservation violated (see messages above). Consider investigating abundance inputs or unary compaction.')
 
         # Apply imperfect flow sampling if epsilon < 1 or even at 1 (full Poisson) per specification
         def truncated_poisson_sample(lam, eps, rng):
@@ -404,14 +402,13 @@ for gt in range(args.ngenomes,args.ngenomes+1):
                     return low_k + offset
             return high_k
 
-        if args.erroreps < 1.0 or args.erroreps >= 0.0:
-            # Store original perfect flows for reference (optional)
+        # Apply imperfect flow sampling ONLY when user did not supply explicit abundances.
+        if provided_abundances is None and args.erroreps < 1.0:
             for u, v, data in list(dbGraph_nx.edges(data=True)):
                 perfect = data['weight']
                 imperfect = truncated_poisson_sample(perfect, args.erroreps, rng)
-                # Ensure non-zero to preserve connectivity; if zero, keep at least 1 if perfect >0
                 if imperfect == 0 and perfect > 0:
-                    imperfect = 1 if args.erroreps > 0 else perfect  # if eps=0 median could be 0; allow 0
+                    imperfect = 1 if args.erroreps > 0 else perfect
                 data['perfect_weight'] = perfect
                 data['weight'] = imperfect
 
@@ -420,7 +417,11 @@ for gt in range(args.ngenomes,args.ngenomes+1):
                 filename = f'{outdir}/gt{gt}.kmer{k}.({range_start}.{range_start+range_increment}).V{dbGraph_nx.number_of_nodes()}.E{dbGraph_nx.number_of_edges()}.e{args.erroreps}.acyc'
                 write_to_catfish_format(dbGraph_nx, filename)
                 dbGraph_dot = network2dot(dbGraph_nx)
-                dbGraph_dot.render(filename + ".dot")
+                if args.pdf:
+                    dbGraph_dot.render(filename + ".dot")
+                if args.png:
+                    dbGraph_dot.format = 'png'
+                    dbGraph_dot.render(filename + ".dot")
         else:
             n_cycles = 0
             if args.mincycles > 0:
@@ -430,6 +431,9 @@ for gt in range(args.ngenomes,args.ngenomes+1):
                 write_to_catfish_format(dbGraph_nx, filename)
                 dbGraph_dot = network2dot(dbGraph_nx)
                 if args.pdf:
+                    dbGraph_dot.render(filename + ".dot")
+                if args.png:
+                    dbGraph_dot.format = 'png'
                     dbGraph_dot.render(filename + ".dot")
 
         # activate these for debugging

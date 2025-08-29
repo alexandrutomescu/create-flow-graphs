@@ -1,0 +1,18 @@
+digraph {
+	graph [rankdir=LR]
+	node [shape=rectangle]
+	5957 -> 5976 [label=50]
+	5976 -> 8360 [label=14]
+	5976 -> 1 [label=46]
+	8360 -> 8442 [label=20]
+	8442 -> 8360 [label=12]
+	8442 -> 1 [label=7]
+	17470 -> 5957 [label=28]
+	39798 -> 1 [label=40]
+	49773 -> 1 [label=5]
+	0 -> 5957 [label=12]
+	0 -> 17470 [label=44]
+	0 -> 1 [label=6]
+	0 -> 39798 [label=54]
+	0 -> 49773 [label=5]
+}

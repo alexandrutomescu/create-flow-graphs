@@ -1,0 +1,112 @@
+#gt10.kmer27.(2070000.2080000).V14.E24.mincyc1.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 101 0 2 7839 9976 1 
+#T 34 0 1 
+#T 44 0 29926 1 
+#T 79 0 33499 33500 33499 33500 1 
+#T 14 0 49874 1 
+#T 55 0 52011 2 7839 1 
+#T 5 0 61986 1 
+#T 19 0 71961 1 
+#T 16 0 81936 1 
+#T 49 0 91911 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 7839 9976 
+#S 2 7839 9976 
+#S 7839 9976 
+#S 7839 9976 
+#S 2 7839 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 33499 33500 33499 33500 1 
+#S 33500 1 
+#S 33500 1 
+#S 33500 1 
+#S 33500 1 
+# 4 subpath constraints for genome
+#S 0 49874 
+#S 0 49874 
+#S 0 49874 
+#S 0 49874 
+#S 0 49874 
+# 5 subpath constraints for genome
+#S 2 7839 
+#S 2 7839 
+#S 0 52011 
+#S 2 7839 
+#S 2 7839 
+# 6 subpath constraints for genome
+#S 0 61986 
+#S 0 61986 
+#S 0 61986 
+#S 0 61986 
+#S 0 61986 
+# 7 subpath constraints for genome
+#S 0 71961 
+#S 0 71961 
+#S 0 71961 
+#S 0 71961 
+#S 0 71961 
+# 8 subpath constraints for genome
+#S 0 81936 
+#S 0 81936 
+#S 0 81936 
+#S 0 81936 
+#S 0 81936 
+# 9 subpath constraints for genome
+#S 0 91911 
+#S 0 91911 
+#S 0 91911 
+#S 0 91911 
+#S 0 91911 
+24
+2 7839 165
+7839 1 54
+7839 9976 115
+9976 1 107
+29926 1 35
+33499 33500 150
+33500 33499 82
+33500 1 77
+49874 1 9
+52011 2 54
+61986 1 3
+71961 1 20
+81936 1 14
+91911 1 58
+0 2 103
+0 1 35
+0 29926 35
+0 33499 74
+0 49874 9
+0 52011 61
+0 61986 4
+0 71961 25
+0 81936 16
+0 91911 43

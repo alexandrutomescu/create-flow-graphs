@@ -1,0 +1,112 @@
+#gt10.kmer27.(2210000.2220000).V14.E24.mincyc1.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 174 0 2 6642 9976 1 
+#T 40 0 1 
+#T 30 0 29926 1 
+#T 23 0 30698 30714 30698 30714 1 
+#T 11 0 49859 1 
+#T 29 0 53193 2 6642 1 
+#T 11 0 63168 1 
+#T 12 0 73143 1 
+#T 54 0 83118 1 
+#T 27 0 93093 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 2 6642 
+#S 2 6642 
+#S 6642 9976 
+#S 2 6642 
+#S 2 6642 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 30698 30714 30698 
+#S 30714 1 
+#S 30714 1 
+#S 30714 1 
+#S 30714 1 
+# 4 subpath constraints for genome
+#S 0 49859 
+#S 0 49859 
+#S 0 49859 
+#S 0 49859 
+#S 0 49859 
+# 5 subpath constraints for genome
+#S 2 6642 
+#S 2 6642 
+#S 2 6642 
+#S 2 6642 
+#S 2 6642 
+# 6 subpath constraints for genome
+#S 0 63168 
+#S 0 63168 
+#S 0 63168 
+#S 0 63168 
+#S 0 63168 
+# 7 subpath constraints for genome
+#S 0 73143 
+#S 0 73143 
+#S 0 73143 
+#S 0 73143 
+#S 0 73143 
+# 8 subpath constraints for genome
+#S 0 83118 
+#S 0 83118 
+#S 0 83118 
+#S 0 83118 
+#S 0 83118 
+# 9 subpath constraints for genome
+#S 0 93093 
+#S 0 93093 
+#S 0 93093 
+#S 0 93093 
+#S 0 93093 
+24
+2 6642 206
+6642 1 24
+6642 9976 179
+9976 1 164
+29926 1 41
+30698 30714 58
+30714 30698 23
+30714 1 25
+49859 1 12
+53193 2 26
+63168 1 14
+73143 1 9
+83118 1 42
+93093 1 27
+0 2 191
+0 1 39
+0 29926 25
+0 30698 23
+0 49859 11
+0 53193 30
+0 63168 10
+0 73143 11
+0 83118 53
+0 93093 35

@@ -1,0 +1,114 @@
+#gt10.kmer27.(3070000.3080000).V15.E26.mincyc1.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 58 0 3 13 1346 9976 1 
+#T 9 0 1 
+#T 15 0 29926 1 
+#T 10 0 33045 33072 33045 33072 1 
+#T 65 0 49848 1 
+#T 41 0 1346 9976 51192 1 
+#T 22 0 58045 3 13 1 
+#T 15 0 71131 1 
+#T 15 0 81106 1 
+#T 8 0 91081 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 33072 1 
+#S 0 33045 
+#S 33072 1 
+#S 33072 1 
+#S 0 33045 33072 33045 33072 1 
+# 4 subpath constraints for genome
+#S 0 49848 
+#S 0 49848 
+#S 0 49848 
+#S 0 49848 
+#S 0 49848 
+# 5 subpath constraints for genome
+#S 1346 9976 
+#S 9976 51192 
+#S 9976 51192 
+#S 1346 9976 
+#S 1346 9976 
+# 6 subpath constraints for genome
+#S 0 58045 
+#S 0 58045 
+#S 0 58045 
+#S 0 58045 
+#S 13 1 
+# 7 subpath constraints for genome
+#S 0 71131 
+#S 0 71131 
+#S 0 71131 
+#S 0 71131 
+#S 0 71131 
+# 8 subpath constraints for genome
+#S 0 81106 
+#S 0 81106 
+#S 0 81106 
+#S 0 81106 
+#S 0 81106 
+# 9 subpath constraints for genome
+#S 0 91081 
+#S 0 91081 
+#S 0 91081 
+#S 0 91081 
+#S 0 91081 
+26
+3 13 72
+13 1346 74
+13 1 16
+1346 9976 103
+9976 1 65
+9976 51192 43
+29926 1 16
+33045 33072 15
+33072 33045 15
+33072 1 10
+49848 1 65
+51192 1 41
+58045 3 24
+71131 1 11
+81106 1 21
+91081 1 8
+0 1346 33
+0 3 60
+0 1 14
+0 29926 13
+0 33045 8
+0 49848 70
+0 58045 23
+0 71131 13
+0 81106 1
+0 91081 5

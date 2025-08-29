@@ -1,0 +1,109 @@
+#gt10.kmer27.(3720000.3730000).V12.E21.mincyc1.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 4 0 1 
+#T 48 0 19951 1 
+#T 57 0 29926 1 
+#T 49 0 39901 1 
+#T 109 0 49876 1 
+#T 107 0 59851 1 
+#T 109 0 69826 1 
+#T 69 0 79801 1 
+#T 105 0 89776 1 
+#T 17 0 90406 90427 90406 90427 90406 90427 90406 90427 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+# 4 subpath constraints for genome
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+# 5 subpath constraints for genome
+#S 0 59851 
+#S 0 59851 
+#S 0 59851 
+#S 0 59851 
+#S 0 59851 
+# 6 subpath constraints for genome
+#S 0 69826 
+#S 0 69826 
+#S 0 69826 
+#S 0 69826 
+#S 0 69826 
+# 7 subpath constraints for genome
+#S 0 79801 
+#S 0 79801 
+#S 0 79801 
+#S 0 79801 
+#S 0 79801 
+# 8 subpath constraints for genome
+#S 0 89776 
+#S 0 89776 
+#S 0 89776 
+#S 0 89776 
+#S 0 89776 
+# 9 subpath constraints for genome
+#S 90427 1 
+#S 90427 1 
+#S 90427 1 
+#S 90427 1 
+#S 90427 1 
+21
+19951 1 49
+29926 1 65
+39901 1 49
+49876 1 105
+59851 1 112
+69826 1 107
+79801 1 62
+89776 1 119
+90406 90427 70
+90427 90406 42
+90427 1 23
+0 1 5
+0 19951 48
+0 29926 56
+0 39901 47
+0 49876 119
+0 59851 102
+0 69826 124
+0 79801 62
+0 89776 112
+0 90406 17

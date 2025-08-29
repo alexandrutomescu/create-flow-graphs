@@ -1,0 +1,111 @@
+#gt10.kmer27.(3680000.3690000).V13.E23.mincyc1.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 12 0 1 
+#T 47 0 19951 1 
+#T 23 0 29926 1 
+#T 37 0 39901 1 
+#T 42 0 49876 1 
+#T 9 0 59732 59742 59819 59820 1 
+#T 48 0 59742 59819 59820 59732 59742 59819 1 
+#T 3 0 79634 1 
+#T 16 0 89609 1 
+#T 44 0 99584 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+# 4 subpath constraints for genome
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+# 5 subpath constraints for genome
+#S 0 59732 
+#S 0 59732 
+#S 0 59732 59742 59819 59820 1 
+#S 0 59732 
+#S 0 59732 
+# 6 subpath constraints for genome
+#S 0 59742 
+#S 0 59742 
+#S 0 59742 
+#S 59819 1 
+#S 0 59742 
+# 7 subpath constraints for genome
+#S 0 79634 
+#S 0 79634 
+#S 0 79634 
+#S 0 79634 
+#S 0 79634 
+# 8 subpath constraints for genome
+#S 0 89609 
+#S 0 89609 
+#S 0 89609 
+#S 0 89609 
+#S 0 89609 
+# 9 subpath constraints for genome
+#S 0 99584 
+#S 0 99584 
+#S 0 99584 
+#S 0 99584 
+#S 0 99584 
+23
+19951 1 42
+29926 1 26
+39901 1 40
+49876 1 40
+59732 59742 59
+59742 59819 104
+59819 59820 65
+59819 1 41
+59820 1 14
+59820 59732 69
+79634 1 2
+89609 1 16
+99584 1 41
+0 1 9
+0 19951 48
+0 29926 29
+0 39901 33
+0 49876 47
+0 59732 11
+0 59742 50
+0 79634 2
+0 89609 13
+0 99584 43

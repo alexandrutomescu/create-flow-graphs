@@ -1,0 +1,133 @@
+#gt10.kmer27.(3760000.3770000).V28.E45.mincyc19.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 53 0 5468 5545 5572 5625 5763 5798 5825 5829 5856 5868 5871 5468 5545 7246 5572 5625 7383 5763 5798 7409 5825 5829 7435 5856 5868 5871 5868 1 
+#T 9 0 1 
+#T 10 0 29736 1 
+#T 249 0 39711 1 
+#T 239 0 46098 46156 46160 1 
+#T 88 0 59661 1 
+#T 21 0 69636 1 
+#T 39 0 79611 1 
+#T 35 0 83203 83204 46156 46160 46098 83203 83204 1 
+#T 13 0 99553 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 5468 
+#S 5871 5468 5545 7246 5572 5625 7383 5763 5798 7409 5825 5829 7435 
+#S 0 5468 
+#S 0 5468 5545 5572 5625 5763 5798 
+#S 5871 5868 1 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29736 
+#S 0 29736 
+#S 0 29736 
+#S 0 29736 
+#S 0 29736 
+# 3 subpath constraints for genome
+#S 0 39711 
+#S 0 39711 
+#S 0 39711 
+#S 0 39711 
+#S 0 39711 
+# 4 subpath constraints for genome
+#S 0 46098 
+#S 0 46098 
+#S 46098 46156 46160 1 
+#S 0 46098 
+#S 46160 1 
+# 5 subpath constraints for genome
+#S 0 59661 
+#S 0 59661 
+#S 0 59661 
+#S 0 59661 
+#S 0 59661 
+# 6 subpath constraints for genome
+#S 0 69636 
+#S 0 69636 
+#S 0 69636 
+#S 0 69636 
+#S 0 69636 
+# 7 subpath constraints for genome
+#S 0 79611 
+#S 0 79611 
+#S 0 79611 
+#S 0 79611 
+#S 0 79611 
+# 8 subpath constraints for genome
+#S 83204 1 
+#S 83204 1 
+#S 83204 1 
+#S 83204 1 
+#S 83204 1 
+# 9 subpath constraints for genome
+#S 0 99553 
+#S 0 99553 
+#S 0 99553 
+#S 0 99553 
+#S 0 99553 
+45
+5468 5545 108
+5545 5572 59
+5545 7246 49
+5572 5625 125
+5625 5763 53
+5625 7383 55
+5763 5798 134
+5798 5825 55
+5798 7409 55
+5825 5829 123
+5829 5856 59
+5829 7435 37
+5856 5868 99
+5868 5871 116
+5868 1 49
+5871 5468 58
+5871 5868 59
+7246 5572 59
+7383 5763 38
+7409 5825 60
+7435 5856 45
+29736 1 5
+39711 1 224
+46098 46156 245
+46098 83203 34
+46156 46160 269
+46160 1 246
+46160 46098 32
+59661 1 73
+69636 1 13
+79611 1 44
+83203 83204 66
+83204 46156 35
+83204 1 30
+99553 1 12
+0 5468 46
+0 1 9
+0 29736 7
+0 39711 230
+0 46098 238
+0 59661 89
+0 69636 20
+0 79611 39
+0 83203 30
+0 99553 15

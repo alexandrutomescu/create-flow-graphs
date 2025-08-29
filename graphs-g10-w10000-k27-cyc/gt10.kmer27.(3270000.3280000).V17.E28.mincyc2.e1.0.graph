@@ -1,0 +1,116 @@
+#gt10.kmer27.(3270000.3280000).V17.E28.mincyc2.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 75 0 2 5 32 34 76 2 5 140 32 34 76 9927 1 
+#T 62 0 1 
+#T 49 0 29877 1 
+#T 17 0 39852 1 
+#T 17 0 49827 1 
+#T 26 0 34 76 9927 49972 1 
+#T 15 0 59947 1 
+#T 18 0 69922 1 
+#T 37 0 79897 1 
+#T 52 0 89872 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 76 9927 
+#S 76 9927 
+#S 76 9927 
+#S 76 9927 
+#S 76 9927 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29877 
+#S 0 29877 
+#S 0 29877 
+#S 0 29877 
+#S 0 29877 
+# 3 subpath constraints for genome
+#S 0 39852 
+#S 0 39852 
+#S 0 39852 
+#S 0 39852 
+#S 0 39852 
+# 4 subpath constraints for genome
+#S 0 49827 
+#S 0 49827 
+#S 0 49827 
+#S 0 49827 
+#S 0 49827 
+# 5 subpath constraints for genome
+#S 76 9927 
+#S 76 9927 
+#S 76 9927 
+#S 76 9927 
+#S 76 9927 
+# 6 subpath constraints for genome
+#S 0 59947 
+#S 0 59947 
+#S 0 59947 
+#S 0 59947 
+#S 0 59947 
+# 7 subpath constraints for genome
+#S 0 69922 
+#S 0 69922 
+#S 0 69922 
+#S 0 69922 
+#S 0 69922 
+# 8 subpath constraints for genome
+#S 0 79897 
+#S 0 79897 
+#S 0 79897 
+#S 0 79897 
+#S 0 79897 
+# 9 subpath constraints for genome
+#S 0 89872 
+#S 0 89872 
+#S 0 89872 
+#S 0 89872 
+#S 0 89872 
+28
+2 5 152
+5 32 76
+5 140 71
+32 34 142
+34 76 187
+76 2 75
+76 9927 98
+140 32 75
+9927 1 83
+9927 49972 21
+29877 1 59
+39852 1 19
+49827 1 17
+49972 1 15
+59947 1 13
+69922 1 21
+79897 1 45
+89872 1 51
+0 2 69
+0 34 19
+0 1 62
+0 29877 64
+0 39852 15
+0 49827 18
+0 59947 13
+0 69922 8
+0 79897 31
+0 89872 51

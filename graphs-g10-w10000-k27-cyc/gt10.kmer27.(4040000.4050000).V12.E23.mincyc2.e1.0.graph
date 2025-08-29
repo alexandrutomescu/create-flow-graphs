@@ -1,0 +1,111 @@
+#gt10.kmer27.(4040000.4050000).V12.E23.mincyc2.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 90 0 1 
+#T 163 0 19951 1 
+#T 179 0 29926 1 
+#T 11 0 39901 1 
+#T 29 0 46300 46306 1 
+#T 73 0 51281 46300 46306 51281 1 
+#T 33 0 69818 1 
+#T 71 0 73279 73279 1 
+#T 23 0 89767 1 
+#T 53 0 99742 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+# 4 subpath constraints for genome
+#S 46306 1 
+#S 46306 1 
+#S 0 46300 
+#S 0 46300 46306 1 
+#S 0 46300 
+# 5 subpath constraints for genome
+#S 51281 1 
+#S 51281 1 
+#S 51281 1 
+#S 51281 1 
+#S 46306 51281 1 
+# 6 subpath constraints for genome
+#S 0 69818 
+#S 0 69818 
+#S 0 69818 
+#S 0 69818 
+#S 0 69818 
+# 7 subpath constraints for genome
+#S 73279 73279 
+#S 0 73279 73279 
+#S 73279 1 
+#S 73279 1 
+#S 73279 73279 1 
+# 8 subpath constraints for genome
+#S 0 89767 
+#S 0 89767 
+#S 0 89767 
+#S 0 89767 
+#S 0 89767 
+# 9 subpath constraints for genome
+#S 0 99742 
+#S 0 99742 
+#S 0 99742 
+#S 0 99742 
+#S 0 99742 
+23
+19951 1 165
+29926 1 169
+39901 1 8
+46300 46306 94
+46306 1 36
+46306 51281 78
+51281 46300 73
+51281 1 67
+69818 1 27
+73279 73279 68
+73279 1 69
+89767 1 22
+99742 1 55
+0 1 91
+0 19951 167
+0 29926 154
+0 39901 17
+0 46300 29
+0 51281 73
+0 69818 40
+0 73279 64
+0 89767 27
+0 99742 53

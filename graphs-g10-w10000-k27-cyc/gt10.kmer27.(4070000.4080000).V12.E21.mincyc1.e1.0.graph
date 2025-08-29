@@ -1,0 +1,109 @@
+#gt10.kmer27.(4070000.4080000).V12.E21.mincyc1.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 54 0 1 
+#T 34 0 16489 16527 16489 16527 1 
+#T 9 0 29887 1 
+#T 8 0 39862 1 
+#T 4 0 49837 1 
+#T 37 0 59812 1 
+#T 27 0 69787 1 
+#T 5 0 79762 1 
+#T 75 0 89737 1 
+#T 19 0 99712 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 0 16489 
+#S 16527 1 
+#S 0 16489 
+#S 0 16489 
+#S 0 16489 
+# 2 subpath constraints for genome
+#S 0 29887 
+#S 0 29887 
+#S 0 29887 
+#S 0 29887 
+#S 0 29887 
+# 3 subpath constraints for genome
+#S 0 39862 
+#S 0 39862 
+#S 0 39862 
+#S 0 39862 
+#S 0 39862 
+# 4 subpath constraints for genome
+#S 0 49837 
+#S 0 49837 
+#S 0 49837 
+#S 0 49837 
+#S 0 49837 
+# 5 subpath constraints for genome
+#S 0 59812 
+#S 0 59812 
+#S 0 59812 
+#S 0 59812 
+#S 0 59812 
+# 6 subpath constraints for genome
+#S 0 69787 
+#S 0 69787 
+#S 0 69787 
+#S 0 69787 
+#S 0 69787 
+# 7 subpath constraints for genome
+#S 0 79762 
+#S 0 79762 
+#S 0 79762 
+#S 0 79762 
+#S 0 79762 
+# 8 subpath constraints for genome
+#S 0 89737 
+#S 0 89737 
+#S 0 89737 
+#S 0 89737 
+#S 0 89737 
+# 9 subpath constraints for genome
+#S 0 99712 
+#S 0 99712 
+#S 0 99712 
+#S 0 99712 
+#S 0 99712 
+21
+16489 16527 85
+16527 16489 34
+16527 1 40
+29887 1 9
+39862 1 10
+49837 1 4
+59812 1 48
+69787 1 23
+79762 1 3
+89737 1 69
+99712 1 24
+0 1 50
+0 16489 46
+0 29887 8
+0 39862 11
+0 49837 3
+0 59812 42
+0 69787 39
+0 79762 3
+0 89737 74
+0 99712 21

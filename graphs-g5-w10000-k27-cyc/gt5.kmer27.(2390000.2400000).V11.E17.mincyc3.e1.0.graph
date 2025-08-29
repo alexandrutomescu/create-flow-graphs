@@ -1,0 +1,70 @@
+#gt5.kmer27.(2390000.2400000).V11.E17.mincyc3.e1.0
+#construct-flow-graph.py -o graphs-g5-w10000-k27-cyc/ -g 5 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=5
+#nreads=5
+#readlength=1000
+#outdir=graphs-g5-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 9 0 1 
+#T 32 0 19951 1 
+#T 6 0 29926 1 
+#T 19 0 39901 1 
+#T 33 0 44468 44523 44468 44523 47307 47357 47422 47307 47357 47429 47422 47307 47357 47429 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+#S 0 19951 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+# 4 subpath constraints for genome
+#S 0 44468 
+#S 47307 47357 47429 1 
+#S 44523 44468 44523 47307 
+#S 44523 47307 
+#S 47429 1 
+17
+19951 1 36
+29926 1 10
+39901 1 26
+44468 44523 67
+44523 44468 29
+44523 47307 37
+47307 47357 101
+47357 47422 37
+47357 47429 61
+47422 47307 68
+47429 47422 36
+47429 1 31
+0 1 5
+0 19951 28
+0 29926 5
+0 39901 20
+0 44468 34

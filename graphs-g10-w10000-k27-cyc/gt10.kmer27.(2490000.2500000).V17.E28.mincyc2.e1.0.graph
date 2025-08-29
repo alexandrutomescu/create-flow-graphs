@@ -1,0 +1,116 @@
+#gt10.kmer27.(2490000.2500000).V17.E28.mincyc2.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 10 0 2 4530 9976 1 
+#T 48 0 1 
+#T 58 0 29926 1 
+#T 35 0 39901 1 
+#T 31 0 49876 1 
+#T 118 0 55322 2 4530 1 
+#T 28 0 65297 1 
+#T 25 0 73026 73048 73081 73085 73026 73048 73157 73081 73085 1 
+#T 19 0 85219 1 
+#T 34 0 95194 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 4530 9976 
+#S 4530 9976 
+#S 2 4530 9976 
+#S 4530 9976 
+#S 2 4530 9976 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+#S 0 39901 
+# 4 subpath constraints for genome
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+#S 0 49876 
+# 5 subpath constraints for genome
+#S 2 4530 
+#S 2 4530 
+#S 2 4530 
+#S 0 55322 
+#S 2 4530 
+# 6 subpath constraints for genome
+#S 0 65297 
+#S 0 65297 
+#S 0 65297 
+#S 0 65297 
+#S 0 65297 
+# 7 subpath constraints for genome
+#S 0 73026 
+#S 0 73026 
+#S 0 73026 
+#S 0 73026 
+#S 0 73026 
+# 8 subpath constraints for genome
+#S 0 85219 
+#S 0 85219 
+#S 0 85219 
+#S 0 85219 
+#S 0 85219 
+# 9 subpath constraints for genome
+#S 0 95194 
+#S 0 95194 
+#S 0 95194 
+#S 0 95194 
+#S 0 95194 
+28
+2 4530 117
+4530 1 113
+4530 9976 11
+9976 1 13
+29926 1 52
+39901 1 36
+49876 1 26
+55322 2 94
+65297 1 30
+73026 73048 59
+73048 73081 23
+73048 73157 15
+73081 73085 44
+73085 73026 33
+73085 1 30
+73157 73081 15
+85219 1 14
+95194 1 26
+0 2 10
+0 1 45
+0 29926 47
+0 39901 40
+0 49876 29
+0 55322 102
+0 65297 34
+0 73026 30
+0 85219 19
+0 95194 42

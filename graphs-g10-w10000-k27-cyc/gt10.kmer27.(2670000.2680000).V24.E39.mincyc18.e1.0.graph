@@ -1,0 +1,127 @@
+#gt10.kmer27.(2670000.2680000).V24.E39.mincyc18.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 20 0 1345 1346 9976 1 
+#T 3 0 1 
+#T 75 0 29926 1 
+#T 9 0 29927 29933 29937 29962 29964 29966 29990 30017 30030 30057 29927 29933 29937 29964 29966 29990 30017 30030 30119 30057 29927 29933 29937 29962 29964 29966 29990 30122 30017 30030 30057 29927 29933 29962 29964 29966 30122 30017 30030 30057 29927 29933 29962 29964 29966 30122 30017 1 
+#T 11 0 49494 1 
+#T 94 0 1346 9976 50838 1 
+#T 15 0 60813 1 
+#T 22 0 70788 1 
+#T 19 0 80763 1 
+#T 12 0 90738 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+#S 0 29926 
+# 3 subpath constraints for genome
+#S 30017 1 
+#S 30017 1 
+#S 30017 1 
+#S 30017 1 
+#S 29966 30122 30017 30030 30057 29927 29933 29962 29964 29966 30122 30017 1 
+# 4 subpath constraints for genome
+#S 0 49494 
+#S 0 49494 
+#S 0 49494 
+#S 0 49494 
+#S 0 49494 
+# 5 subpath constraints for genome
+#S 
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+#S 1346 9976 
+# 6 subpath constraints for genome
+#S 0 60813 
+#S 0 60813 
+#S 0 60813 
+#S 0 60813 
+#S 0 60813 
+# 7 subpath constraints for genome
+#S 0 70788 
+#S 0 70788 
+#S 0 70788 
+#S 0 70788 
+#S 0 70788 
+# 8 subpath constraints for genome
+#S 0 80763 
+#S 0 80763 
+#S 0 80763 
+#S 0 80763 
+#S 0 80763 
+# 9 subpath constraints for genome
+#S 0 90738 
+#S 0 90738 
+#S 0 90738 
+#S 0 90738 
+#S 0 90738 
+39
+1345 1346 27
+1346 9976 119
+9976 1 18
+9976 50838 103
+29926 1 71
+29927 29933 38
+29933 29937 26
+29933 29962 22
+29937 29962 19
+29937 29964 7
+29962 29964 38
+29964 29966 41
+29966 29990 42
+29966 30122 15
+29990 30017 25
+29990 30122 9
+30017 30030 40
+30017 1 10
+30030 30057 22
+30030 30119 10
+30057 29927 32
+30119 30057 7
+30122 30017 21
+49494 1 13
+50838 1 90
+60813 1 12
+70788 1 20
+80763 1 14
+90738 1 12
+0 29927 13
+0 1346 102
+0 1345 27
+0 1 7
+0 29926 82
+0 49494 14
+0 60813 22
+0 70788 23
+0 80763 18
+0 90738 15

@@ -1,0 +1,113 @@
+#gt10.kmer27.(2760000.2770000).V15.E25.mincyc1.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 25 0 1345 1346 5413 5415 5413 5415 5413 5415 5413 5415 9957 1 
+#T 18 0 1 
+#T 177 0 29907 1 
+#T 6 0 39882 1 
+#T 87 0 49857 1 
+#T 41 0 1346 5413 5415 5413 5415 5413 5415 5413 5415 9957 51201 1 
+#T 5 0 61176 1 
+#T 30 0 71151 1 
+#T 54 0 81126 1 
+#T 11 0 91101 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 5415 9957 
+#S 5415 9957 
+#S 5415 9957 
+#S 1346 5413 5415 5413 5415 5413 5415 5413 5415 9957 
+#S 0 1345 1346 5413 
+# 1 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 2 subpath constraints for genome
+#S 0 29907 
+#S 0 29907 
+#S 0 29907 
+#S 0 29907 
+#S 0 29907 
+# 3 subpath constraints for genome
+#S 0 39882 
+#S 0 39882 
+#S 0 39882 
+#S 0 39882 
+#S 0 39882 
+# 4 subpath constraints for genome
+#S 0 49857 
+#S 0 49857 
+#S 0 49857 
+#S 0 49857 
+#S 0 49857 
+# 5 subpath constraints for genome
+#S 5415 9957 51201 
+#S 5415 9957 51201 
+#S 5415 9957 
+#S 1346 5413 
+#S 5415 9957 
+# 6 subpath constraints for genome
+#S 0 61176 
+#S 0 61176 
+#S 0 61176 
+#S 0 61176 
+#S 0 61176 
+# 7 subpath constraints for genome
+#S 0 71151 
+#S 0 71151 
+#S 0 71151 
+#S 0 71151 
+#S 0 71151 
+# 8 subpath constraints for genome
+#S 0 81126 
+#S 0 81126 
+#S 0 81126 
+#S 0 81126 
+#S 0 81126 
+# 9 subpath constraints for genome
+#S 0 91101 
+#S 0 91101 
+#S 0 91101 
+#S 0 91101 
+#S 0 91101 
+25
+1345 1346 32
+1346 5413 67
+5413 5415 272
+5415 5413 177
+5415 9957 56
+9957 1 21
+9957 51201 42
+29907 1 183
+39882 1 7
+49857 1 86
+51201 1 34
+61176 1 5
+71151 1 36
+81126 1 43
+91101 1 10
+0 1346 46
+0 1345 19
+0 1 29
+0 29907 154
+0 39882 5
+0 49857 86
+0 61176 5
+0 71151 31
+0 81126 61
+0 91101 12

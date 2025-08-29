@@ -1,0 +1,112 @@
+#gt10.kmer27.(3700000.3710000).V14.E24.mincyc1.e1.0
+#construct-flow-graph.py -o graphs-g10-w10000-k27-cyc/ -g 10 -w 10000 -k 27 --mincycles 1 --nreads 5 --readlength 1000 --distribution lognormal11 --pdf
+#kmersize=27
+#windowsize=10000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal11
+#ngenomes=10
+#nreads=5
+#readlength=1000
+#outdir=graphs-g10-w10000-k27-cyc/
+#pdf=True
+#erroreps=1.0
+#unique source is 0, unique sink is 1
+#genomes: GCA_000005845.2_ASM584v2.fna GCA_000006665.1_ASM666v1.fna GCA_000007445.1_ASM744v1.fna GCA_000008865.2_ASM886v2.fna GCA_000009565.2_ASM956v1.fna GCA_000010245.1_ASM1024v1.fna GCA_000010385.1_ASM1038v1.fna GCA_000010485.1_ASM1048v1.fna GCA_000010745.1_ASM1074v1.fna GCA_000010765.1_ASM1076v1.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 18 0 5957 5976 8360 8442 8360 8442 1 
+#T 27 0 17470 5957 5976 1 
+#T 51 0 1 
+#T 5 0 39798 1 
+#T 27 0 49773 1 
+#T 400 0 59748 1 
+#T 19 0 69723 1 
+#T 10 0 79698 1 
+#T 30 0 89673 1 
+#T 6 0 99648 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 8442 1 
+#S 0 5957 
+#S 0 5957 
+#S 0 5957 
+#S 8442 1 
+# 1 subpath constraints for genome
+#S 0 17470 5957 5976 1 
+#S 0 17470 5957 5976 1 
+#S 0 17470 
+#S 0 17470 
+#S 0 17470 
+# 2 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 3 subpath constraints for genome
+#S 0 39798 
+#S 0 39798 
+#S 0 39798 
+#S 0 39798 
+#S 0 39798 
+# 4 subpath constraints for genome
+#S 0 49773 
+#S 0 49773 
+#S 0 49773 
+#S 0 49773 
+#S 0 49773 
+# 5 subpath constraints for genome
+#S 0 59748 
+#S 0 59748 
+#S 0 59748 
+#S 0 59748 
+#S 0 59748 
+# 6 subpath constraints for genome
+#S 0 69723 
+#S 0 69723 
+#S 0 69723 
+#S 0 69723 
+#S 0 69723 
+# 7 subpath constraints for genome
+#S 0 79698 
+#S 0 79698 
+#S 0 79698 
+#S 0 79698 
+#S 0 79698 
+# 8 subpath constraints for genome
+#S 0 89673 
+#S 0 89673 
+#S 0 89673 
+#S 0 89673 
+#S 
+# 9 subpath constraints for genome
+#S 0 99648 
+#S 0 99648 
+#S 0 99648 
+#S 0 99648 
+#S 0 99648 
+24
+5957 5976 40
+5976 8360 18
+5976 1 25
+8360 8442 28
+8442 8360 19
+8442 1 16
+17470 5957 21
+39798 1 2
+49773 1 25
+59748 1 396
+69723 1 20
+79698 1 8
+89673 1 30
+99648 1 5
+0 5957 15
+0 17470 28
+0 1 46
+0 39798 4
+0 49773 24
+0 59748 402
+0 69723 22
+0 79698 11
+0 89673 24
+0 99648 5
