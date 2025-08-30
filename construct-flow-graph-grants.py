@@ -7,6 +7,10 @@ import networkx as nx
 from graphviz import Digraph
 import argparse
 from numpy.random import default_rng
+try:
+    from Bio import SeqIO
+except ImportError:
+    SeqIO = None
 
 dnaBases = ['A','C','G','T']
 genomeFiles = ['GCA_000005845.2_ASM584v2.fna',
@@ -62,15 +66,22 @@ genomeFiles = ['GCA_000005845.2_ASM584v2.fna',
 
 
 def get_genome(filePath):
-    genome = ''
-    fastqLines = open(filePath, 'r').readlines()
-
-    for lineIndex, line in enumerate(fastqLines):
-        if lineIndex == 0:
-            continue
-        genome += line.strip().upper()
-        
-    return genome
+    """Return concatenated uppercase sequence(s) from FASTA file using Biopython if available."""
+    if SeqIO is not None:
+        seqs = []
+        with open(filePath, 'r') as handle:
+            for record in SeqIO.parse(handle, 'fasta'):
+                seqs.append(str(record.seq).upper())
+        return ''.join(seqs)
+    genome = []
+    with open(filePath, 'r') as fh:
+        for line in fh:
+            if not line:
+                continue
+            if line.startswith('>'):
+                continue
+            genome.append(line.strip().upper())
+    return ''.join(genome)
 
 def augment_dbGraph_from_string(string, index, order, abundance):
     global dbGraph, kmer_paths

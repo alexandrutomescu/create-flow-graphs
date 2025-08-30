@@ -7,21 +7,34 @@ import networkx as nx
 from graphviz import Digraph
 import argparse
 from numpy.random import default_rng
+try:
+    from Bio import SeqIO
+except ImportError:
+    SeqIO = None
+from datasets import load_dataset
 
 # Will be assigned based on selected dataset (ecoli or labmix) by listing directory contents.
 genomeFiles = []
 
 
 def get_genome(filePath):
-    genome = ''
-    fastqLines = open(filePath, 'r').readlines()
-
-    for lineIndex, line in enumerate(fastqLines):
-        if lineIndex == 0:
-            continue
-        genome += line.strip().upper()
-        
-    return genome
+    """Return concatenated uppercase sequence(s) from FASTA file using Biopython if available."""
+    if SeqIO is not None:
+        seqs = []
+        with open(filePath, 'r') as handle:
+            for record in SeqIO.parse(handle, 'fasta'):
+                seqs.append(str(record.seq).upper())
+        return ''.join(seqs)
+    # Fallback manual parser (simple, ignores description lines beginning with '>').
+    genome = []
+    with open(filePath, 'r') as fh:
+        for line in fh:
+            if not line:
+                continue
+            if line.startswith('>'):
+                continue
+            genome.append(line.strip().upper())
+    return ''.join(genome)
 
 def augment_dbGraph_from_string(string, index, order, abundance):
     global dbGraph, kmer_paths
@@ -227,7 +240,7 @@ parser.add_argument('-o', '--outdir', type=str, default='', help='outputdir', re
 parser.add_argument('-p', '--pdf', action='store_true', help='Render PDF')
 parser.add_argument('--png', action='store_true', help='Render PNG image')
 parser.add_argument('-e', '--erroreps', type=float, default=1.0, help='Epsilon in [0,1]; truncates Poisson(f) to central interval of width epsilon around median before sampling new (imperfect) edge flow. 1=full distribution, 0=deterministic at median.')
-parser.add_argument('-D', '--dataset', type=str, default='ecoli', choices=['ecoli','labmix'], help='Dataset: ecoli (default) or labmix (excludes REF.fasta)')
+parser.add_argument('-D', '--dataset', type=str, default='ecoli', choices=['ecoli','labmix','complex32','medium20'], help='Dataset: ecoli (default), labmix (fixed), complex32 (abundances from complex32/nanosim.abundances.tsv), or medium20 (parsed like complex32 from medium20/nanosim.abundances.tsv)')
 parser.add_argument('-A', '--abundances', type=str, default=None, help='Comma-separated list of abundances (floats) for the g genomes; mutually exclusive with --distribution and keeps exact float weights (no Poisson perturbation). Length must equal --ngenomes.')
 
 args = parser.parse_args()
@@ -267,18 +280,11 @@ if args.abundances is not None:
 k = args.kmersize
 outdir = args.outdir.strip().strip("/")
 
-# Select dataset and populate genomeFiles
-if args.dataset == 'ecoli':
-    genome_dir = 'ecoli'
-    genomeFiles = [f for f in os.listdir(genome_dir) if f.endswith('.fna')]
-    genomeFiles.sort()
-elif args.dataset == 'labmix':
-    genome_dir = 'labmix'
-    genomeFiles = [f for f in os.listdir(genome_dir) if f.endswith('.fasta') and f != 'REF.fasta']
-    genomeFiles.sort()
-else:
-    print('ERROR: unknown dataset')
-    sys.exit(1)
+genome_dir, genomeFiles, provided_abundances_loaded, dataset_msgs = load_dataset(args.dataset, args.ngenomes, provided_abundances)
+if provided_abundances_loaded is not None:
+    provided_abundances = provided_abundances_loaded
+for m in dataset_msgs:
+    print(m)
 
 if os.path.isdir(outdir):
     print(f"ERROR: {outdir} already exists")
