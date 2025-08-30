@@ -40,7 +40,7 @@ def load_dataset(name: str, ngenomes: int, user_abundances, allow_distribution: 
     """
     msgs = []
     if name == 'ecoli':
-        genome_dir = 'ecoli'
+        genome_dir = os.path.join('datasets','ecoli')
         if not os.path.isdir(genome_dir):
             print(f'ERROR: missing directory {genome_dir}')
             sys.exit(1)
@@ -53,7 +53,7 @@ def load_dataset(name: str, ngenomes: int, user_abundances, allow_distribution: 
         return genome_dir, genome_files, user_abundances, msgs
 
     if name == 'helicobacter-hepaticus':
-        genome_dir = 'helicobacter-hepaticus'
+        genome_dir = os.path.join('datasets','helicobacter-hepaticus')
         if not os.path.isdir(genome_dir):
             print(f'ERROR: missing directory {genome_dir}')
             sys.exit(1)
@@ -71,7 +71,7 @@ def load_dataset(name: str, ngenomes: int, user_abundances, allow_distribution: 
         return genome_dir, genome_files, user_abundances, msgs
 
     if name == 'labmix':
-        genome_dir = 'labmix'
+        genome_dir = os.path.join('datasets','labmix')
         labmix_order = ["896.fasta", "HXB2.fasta", "JRCSF.fasta", "NL43.fasta", "YU2.fasta"]
         # Resolve possible gzip variants
         resolved = []
@@ -94,7 +94,7 @@ def load_dataset(name: str, ngenomes: int, user_abundances, allow_distribution: 
         return genome_dir, genome_files, fixed_abundances, msgs
 
     if name == 'complex32':
-        genome_dir = 'complex32'
+        genome_dir = os.path.join('datasets','complex32')
         abundance_file = os.path.join(genome_dir, 'nanosim.abundances.tsv')
         if not os.path.isfile(abundance_file):
             print(f'ERROR: Missing abundance file {abundance_file}')
@@ -136,7 +136,7 @@ def load_dataset(name: str, ngenomes: int, user_abundances, allow_distribution: 
         return genome_dir, genome_files, abundances, msgs
 
     if name == 'medium20':
-        genome_dir = 'medium20'
+        genome_dir = os.path.join('datasets','medium20')
         abundance_file = os.path.join(genome_dir, 'nanosim.abundances.tsv')
         if not os.path.isfile(abundance_file):
             print(f'ERROR: Missing abundance file {abundance_file}')

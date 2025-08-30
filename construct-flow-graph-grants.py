@@ -261,7 +261,7 @@ min_length = sys.maxsize
 
 for gt in range(args.ngenomes,args.ngenomes+1):
     for genomeFile in genomeFiles[:gt]:
-        genome = get_genome('ecoli/' + genomeFile)
+        genome = get_genome(os.path.join('datasets','ecoli', genomeFile))
         min_length = min(min_length, len(genome))
         genomes.append(genome)
 
