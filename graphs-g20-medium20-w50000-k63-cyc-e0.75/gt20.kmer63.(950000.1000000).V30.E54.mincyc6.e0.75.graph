@@ -1,0 +1,215 @@
+#gt20.kmer63.(950000.1000000).V30.E54.mincyc6.e0.75
+#construct-flow-graph.py -o graphs-g20-medium20-w50000-k63-cyc-e0.75/ -g 20 -w 50000 -k 63 --mincycles 1 --nreads 5 --readlength 1000 -D medium20 -e 0.75
+#kmersize=63
+#windowsize=50000
+#acyclic=False
+#mincycles=1
+#distribution=lognormal-44
+#ngenomes=20
+#nreads=5
+#readlength=1000
+#outdir=graphs-g20-medium20-w50000-k63-cyc-e0.75/
+#pdf=False
+#png=False
+#erroreps=0.75
+#dataset=medium20
+#abundances=None
+#unique source is 0, unique sink is 1
+#genomes: GCF_000005845.2_ASM584v2_genomic.fna GCF_000009045.1_ASM904v1_genomic.fna GCF_000013285.1_ASM1328v1_genomic.fna GCF_000025905.1_ASM2590v1_genomic.fna GCF_000092125.1_ASM9212v1_genomic.fna GCF_000143845.1_ASM14384v1_genomic.fna GCF_000159115.1_ASM15911v1_genomic.fna GCF_000175375.1_ASM17537v1_genomic.fna GCF_000184345.1_ASM18434v2_genomic.fna GCF_000185725.2_Segn_rugo_CDC_945_V2_genomic.fna GCF_000196035.1_ASM19603v1_genomic.fna GCF_000265425.1_ASM26542v1_genomic.fna GCF_000325705.1_ASM32570v1_genomic.fna GCF_000376705.1_ASM37670v1_genomic.fna GCF_003999335.1_ASM399933v1_genomic.fna GCF_008632635.1_ASM863263v1_genomic.fna GCF_017638885.1_ASM1763888v1_genomic.fna GCF_019704535.1_ASM1970453v1_genomic.fna GCF_019890915.1_ASM1989091v1_genomic.fna GCF_900638215.1_56553_A01_genomic.fna 
+# ground truth paths, in the format 'weight node1 node2 node3 ... '
+#T 49 0 1 
+#T 12 0 99879 1 
+#T 80 0 149818 1 
+#T 60 0 192073 192149 192073 192149 192274 192292 192377 192274 192292 192379 192377 192274 192292 192379 1 
+#T 44 0 249578 1 
+#T 71 0 299517 1 
+#T 59 0 349456 1 
+#T 16 0 381816 381832 381905 381816 381832 381905 382162 381816 381832 1 
+#T 37 0 449227 1 
+#T 135 0 499166 1 
+#T 16 0 549105 1 
+#T 73 0 599044 1 
+#T 19 0 648983 1 
+#T 159 0 698922 1 
+#T 25 0 724029 724051 724029 724051 1 
+#T 30 0 798777 1 
+#T 29 0 848716 1 
+#T 11 0 898655 1 
+#T 21 0 948594 1 
+#T 54 0 998533 1 
+# subpath constraints, in the format 'node1 node2 node3 ... '
+# 0 subpath constraints for genome
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+#S 0 1 
+# 1 subpath constraints for genome
+#S 0 99879 
+#S 0 99879 
+#S 0 99879 
+#S 0 99879 
+#S 0 99879 
+# 2 subpath constraints for genome
+#S 0 149818 
+#S 0 149818 
+#S 0 149818 
+#S 0 149818 
+#S 0 149818 
+# 3 subpath constraints for genome
+#S 0 192073 
+#S 0 192073 
+#S 0 192073 
+#S 192379 1 
+#S 0 192073 
+# 4 subpath constraints for genome
+#S 0 249578 
+#S 0 249578 
+#S 0 249578 
+#S 0 249578 
+#S 0 249578 
+# 5 subpath constraints for genome
+#S 0 299517 
+#S 0 299517 
+#S 0 299517 
+#S 0 299517 
+#S 0 299517 
+# 6 subpath constraints for genome
+#S 0 349456 
+#S 0 349456 
+#S 0 349456 
+#S 0 349456 
+#S 0 349456 
+# 7 subpath constraints for genome
+#S 0 381816 
+#S 381832 1 
+#S 381832 1 
+#S 381832 1 
+#S 0 381816 
+# 8 subpath constraints for genome
+#S 0 449227 
+#S 0 449227 
+#S 0 449227 
+#S 0 449227 
+#S 0 449227 
+# 9 subpath constraints for genome
+#S 0 499166 
+#S 0 499166 
+#S 0 499166 
+#S 0 499166 
+#S 0 499166 
+# 10 subpath constraints for genome
+#S 0 549105 
+#S 0 549105 
+#S 0 549105 
+#S 0 549105 
+#S 0 549105 
+# 11 subpath constraints for genome
+#S 0 599044 
+#S 0 599044 
+#S 0 599044 
+#S 0 599044 
+#S 0 599044 
+# 12 subpath constraints for genome
+#S 0 648983 
+#S 0 648983 
+#S 0 648983 
+#S 0 648983 
+#S 0 648983 
+# 13 subpath constraints for genome
+#S 0 698922 
+#S 0 698922 
+#S 0 698922 
+#S 0 698922 
+#S 0 698922 
+# 14 subpath constraints for genome
+#S 724051 1 
+#S 724051 724029 724051 1 
+#S 0 724029 
+#S 0 724029 
+#S 0 724029 
+# 15 subpath constraints for genome
+#S 0 798777 
+#S 0 798777 
+#S 0 798777 
+#S 0 798777 
+#S 0 798777 
+# 16 subpath constraints for genome
+#S 0 848716 
+#S 0 848716 
+#S 0 848716 
+#S 0 848716 
+#S 0 848716 
+# 17 subpath constraints for genome
+#S 0 898655 
+#S 0 898655 
+#S 0 898655 
+#S 0 898655 
+#S 0 898655 
+# 18 subpath constraints for genome
+#S 0 948594 
+#S 0 948594 
+#S 0 948594 
+#S 0 948594 
+#S 0 948594 
+# 19 subpath constraints for genome
+#S 0 998533 
+#S 0 998533 
+#S 0 998533 
+#S 0 998533 
+#S 0 998533 
+54
+99879 1 12
+149818 1 80
+192073 192149 120
+192149 192073 60
+192149 192274 60
+192274 192292 180
+192292 192377 60
+192292 192379 120
+192377 192274 120
+192379 192377 60
+192379 1 60
+249578 1 44
+299517 1 71
+349456 1 59
+381816 381832 48
+381832 381905 32
+381832 1 16
+381905 381816 16
+381905 382162 16
+382162 381816 16
+449227 1 37
+499166 1 135
+549105 1 16
+599044 1 73
+648983 1 19
+698922 1 159
+724029 724051 50
+724051 724029 25
+724051 1 25
+798777 1 30
+848716 1 29
+898655 1 11
+948594 1 21
+998533 1 54
+0 1 49
+0 99879 12
+0 149818 80
+0 192073 60
+0 249578 44
+0 299517 71
+0 349456 59
+0 381816 16
+0 449227 37
+0 499166 135
+0 549105 16
+0 599044 73
+0 648983 19
+0 698922 159
+0 724029 25
+0 798777 30
+0 848716 29
+0 898655 11
+0 948594 21
+0 998533 54

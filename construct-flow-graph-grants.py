@@ -11,6 +11,7 @@ try:
     from Bio import SeqIO
 except ImportError:
     SeqIO = None
+import gzip
 
 dnaBases = ['A','C','G','T']
 genomeFiles = ['GCA_000005845.2_ASM584v2.fna',
@@ -66,15 +67,18 @@ genomeFiles = ['GCA_000005845.2_ASM584v2.fna',
 
 
 def get_genome(filePath):
-    """Return concatenated uppercase sequence(s) from FASTA file using Biopython if available."""
+    """Return concatenated uppercase sequence(s) from (possibly gzipped) FASTA file using Biopython if available."""
+    is_gz = filePath.endswith('.gz')
+    open_func = gzip.open if is_gz else open
+    mode = 'rt'
     if SeqIO is not None:
         seqs = []
-        with open(filePath, 'r') as handle:
+        with open_func(filePath, mode) as handle:
             for record in SeqIO.parse(handle, 'fasta'):
                 seqs.append(str(record.seq).upper())
         return ''.join(seqs)
     genome = []
-    with open(filePath, 'r') as fh:
+    with open_func(filePath, mode) as fh:
         for line in fh:
             if not line:
                 continue
