@@ -1,0 +1,4 @@
+biopython>=1.83
+networkx
+graphviz
+numpy
